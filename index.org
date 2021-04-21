@@ -183,9 +183,9 @@ In this section we propose a model that helps us think about these variables, th
 
 As mentioned, a major determinant of health is income, here measured as GDP per head. We do not expect an additional euro per head to reduce mortality; more that the order of magnitude has an effect. Hence, we start by considering the relation between mortality and GDP per head on a log-log scale as shown in Figure [[fig:GDP_mortality]]. We have separate mortality data for men and women and the figure shows that women tend to have lower mortality than men. Further, this difference seems to be bigger the lower GDP per head is.
 
-#+caption: Relation between log treatable mortality (by gender) and log GDP per head.
+#+caption: [[https://janboone.github.io/European-Healthcare-Systems/figures/gdp_mortality.html][Relation between log treatable mortality (by gender) and log GDP per head.]]
 #+name: fig:GDP_mortality
-[[file:./figures/gdp_mortality_log_log_scale_by_sex.png]]
+[[file:./figures/gdp_mortality.png]]
 
 The figure suggests a linear relation between log GDP per head and log (treatable) mortality across countries and years in our data set. If we believe that this relation holds both between and within countries, income inequality in a country tends to raise mortality. This can be seen as follows. Let $M$ denote mortality and $m=\ln(M)$ log mortality. Similarly, $Y$ denotes GDP per head and $y=\ln(Y)$. Then the relation between $m$ and $Y$ is of the form:
 \begin{equation}
@@ -336,7 +336,10 @@ As shown in Figure [[fig:nurses_doctors]], there is quite some variation in the 
 
 #+caption: Variation in nurses/doctors ratio across countries and time.
 #+name: fig:nurses_doctors
-[[./figures/nurses_doctors.png]]
+[[./figures/doctors_nurses.png]]
+
+
+[[./figures/doctors_nurses.html][Interactive graph]]
 
 Increasing the use of primary care and nurses, increases the probability that a patient is cured in hospital:
 \begin{equation}
@@ -1319,11 +1322,10 @@ That is, each estimated parameter has a distribution (see below) and each point 
 
 #+caption:  Model fit in terms of log treatable mortality and log GDP per head.
 #+name: fig:fit_model
-[[file:./figures/check_fit.png]]
+[[file:./figures/gdp_mortality_fit.png]]
 
-# https://bookdown.org/rdpeng/advstatcomp/
-# book on advanced statistical computing
-# section 7.4: mcse vs r-statistic
+
+
 
 ** main specification
  
