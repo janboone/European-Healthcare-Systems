@@ -334,12 +334,9 @@ As stated by cite:OECD_2020: "Strengthening primary care has been identified as 
 
 As shown in Figure [[fig:nurses_doctors]], there is quite some variation in the nurses/doctor ratio among the countries in our data set. In some countries this ratio is close to 1 while in others it almost equals 5. Note that we only include this ratio in our regression, not the number of nurses and doctors. The reason is that we condition on healthcare expenditure which captures level effects. Hence we are interested in the question: for given expenditure, does mortality fall if five times more nurses than doctors are employed?
 
-#+caption: Variation in nurses/doctors ratio across countries and time.
+#+caption: [[https://janboone.github.io/European-Healthcare-Systems/figures/doctors_nurses.html][Variation in nurses/doctors ratio across countries and time.]]
 #+name: fig:nurses_doctors
 [[./figures/doctors_nurses.png]]
-
-
-[[./figures/doctors_nurses.html][Interactive graph]]
 
 Increasing the use of primary care and nurses, increases the probability that a patient is cured in hospital:
 \begin{equation}
@@ -432,81 +429,62 @@ The code in this section can only be run after the data is loaded in section ref
 
 The following block contains the code to generate the figure showing the relation between log GDP per capita and log treatable mortality.
 
-#+begin_src jupyter-python :file ./figures/gdp_mortality_log_log_scale_by_sex.png
-import matplotlib.colors as colors
-import matplotlib as mpl
-import matplotlib.cm as mplcm
-import numpy as np
-import statsmodels.api as sm
+#+begin_src jupyter-python
+df['log gdp'] = np.log(df['GDP per capita'])
+df['log mortality'] = np.log(df['Treatable mortality'])
+df['Gender'] = df['sex'].replace({'F':'Female','M':'Male'})
 
-plt.style.use('seaborn-dark-palette')
-NUM_COLORS = 24
-cm = plt.get_cmap('tab20b') 
-cNorm  = colors.Normalize(vmin=0, vmax=NUM_COLORS-1)
-scalarMap = mplcm.ScalarMappable(norm=cNorm, cmap=cm)
-mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=([scalarMap.to_rgba(i) for i in range(NUM_COLORS)]))
+figure = alt.Chart(df).mark_point(filled=True,size=50).encode(
+    alt.X('log gdp',title='GDP per captita(in logs)',scale=alt.Scale(domain=[9,12])),
+    alt.Y('log mortality',title='Treatable mortality (in logs)',scale=alt.Scale(domain=[4,6])),
+    color='country',
+    column='Gender',
+    tooltip=['country']
+).configure_axis(
+    grid=False
+).configure_view(
+    strokeWidth=0
+) 
 
-fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, sharex=True,figsize=(13,5))
+figure.save('./figures/gdp_mortality.html')
+figure.save('./figures/gdp_mortality.png')
 
-for country in df.country.unique():
-    mask = (df.country == country)
-    ax1.scatter(df[mask&(df.sex=='F')]['GDP per capita'], df[mask&(df.sex=='F')]['Treatable mortality'], label = country)
-    ax2.scatter(df[mask&(df.sex=='M')]['GDP per capita'], df[mask&(df.sex=='M')]['Treatable mortality'], label = country)
-    
-ax1.set_yscale('log')
-ax1.set_xscale('log')
-ax1.set_xlabel('GDP per capita')
-ax2.set_xlabel('GDP per capita')
-ax1.set_ylabel('Treatable mortality')
-ax1.set_title('Female')
-ax2.set_title('Male')
-plt.tight_layout()
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.);
 #+end_src
 
-#+RESULTS:
-[[file:./figures/gdp_mortality_log_log_scale_by_sex.png]]
 
 *** nurses/doctors ratio
 
 Here we plot the relation between practicing doctors and nurses.
 
-#+begin_src jupyter-python :file ./figures/nurses_doctors.png
-import matplotlib.colors as colors
-import matplotlib as mpl
-import matplotlib.cm as mplcm
-import numpy as np
-import statsmodels.api as sm
 
-plt.style.use('seaborn-dark-palette')
-NUM_COLORS = 24
+#+begin_src jupyter-python
+chart_selection = ['Practising medical doctors per 100k', 'Practising nurses and midwives per 100k','country']
+df_chart = df[chart_selection]
 
-cm = plt.get_cmap('tab20b') # plt.get_cmap('gist_rainbow')
-cNorm  = colors.Normalize(vmin=0, vmax=NUM_COLORS-1)
-scalarMap = mplcm.ScalarMappable(norm=cNorm, cmap=cm)
+chart1 = alt.Chart(df_chart).mark_point(filled=True,size=50).encode(
+    alt.X('Practising medical doctors per 100k'),
+    alt.Y('Practising nurses and midwives per 100k'),
+    color='country',
+    tooltip='country'
+)
 
-#selection = (nurses_doctor_ratio>0)#*(log_gdp<0)
-mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=([scalarMap.to_rgba(i) for i in range(NUM_COLORS)]))
+df_2 = pd.DataFrame({'x': [0,550], 'y':[0,550],'z':[0,5*550]})
+chart2 = alt.Chart(df_2).mark_line().encode(
+    alt.X('x'),
+    alt.Y('y')
+)
 
-for country in df.country.unique():
-    mask = (df.country == country)
-    plt.scatter(df[mask]['Practising medical doctors per 100k'], df[mask]['Practising nurses and midwives per 100k'], label = country)
-    
-plt.xlabel('Medical doctors per 100k')
-plt.ylabel('Nurses and midwives per 100k')
-plt.plot([0,550],[0,550],'--',c='k')
-plt.plot([0,550],[0,5*550],'--',c='k')
-plt.text(400,300, 'ratio 1')
-plt.text(200,1300, 'ratio 5')
-plt.xlim(0,550)
-plt.ylim(0,1900)
-plt.tight_layout()
-#plt.title('Treatable mortality vs. GDP per head on log-log scales')
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.);
+chart3 = alt.Chart(df_2).mark_line().encode(
+    x='x',
+    y='z')
+
+chart = chart1+chart2+chart3
+chart.layer[0].encoding.x.title='Practising medical doctors per 100k'
+chart.layer[0].encoding.y.title='Practising nurses and midwives per 100k'
+chart.save('./figures/doctors_nurses.html')
+chart.save('./figures/doctors_nurses.png')
+
 #+end_src
-
-#+RESULTS:
-[[file:./figures/nurses_doctors.png]]
 
 
 * Data
@@ -549,9 +527,9 @@ However, comparable data on quality of life (e.g. via quality adjusted life year
 
 However, with generic policy measures like introducing a healthcare regulator it is harder to see why this would reduce mortality but not the quality of healthcare more generally. Another advantage of the mortality measures that we use is that they are based on a standardized age distribution. Hence, we do not need to control for age in our model. For instance, because a population with a high fraction of elderly can be expected to have higher mortality. In fact, with a standardized mortality measure, the opposite is the case as illustrated in Figure [[fig:age_mortality]]. Populations with a high median age tend to have low (standardized) mortality, otherwise the median age would not be that high.
 
-#+caption: The relation between median age in the population and a standardized mortality measure.
+#+caption: [[https://janboone.github.io/European-Healthcare-Systems/figures/age_mortality.html][The relation between median age in the population and Treatable mortality.]]
 #+name: fig:age_mortality
-[[file:./figures/age.png]]
+[[file:./figures/age_mortality.png]]
 
 Appendix ref:sec:mortality provides details on the mortality measures. Here we provide the definitions and illustrate these with examples. In the main text we work with treatable mortality, for two robustness analyses we work with preventable mortality and Potential Years of Life Lost (PYLL). An advantage of PYLL is that we can evaluate the benefit of certain policies by choosing a value for a life year. This is not obvious to do with a mortality measure as we cannot differentiate between death avoided at age 20 and age 60.
 
@@ -687,6 +665,8 @@ import numpy as np
 import pymc3 as pm
 import arviz as az
 import warnings
+import altair as alt
+from altair_saver import save
 warnings.filterwarnings("ignore")
 trace_columns = ['coefficient','mean', 'sd', 'hpd_3%', 'hpd_97%', 'mcse_mean', 'mcse_sd', 'ess_mean', 'ess_sd', 'ess_bulk', 'ess_tail', 'r_hat']
 
@@ -845,18 +825,25 @@ print(tabulate(groupby_policy[policy_mask][['avoidable hospitalizations', 'nurse
 
 *** figure median age vs. mortality
 
-#+begin_src jupyter-python :file ./figures/age.png
-mask_f = df.sex == 'F'
-plt.scatter(df['median age'],df['Treatable mortality'],label='men')
-plt.scatter(df[mask_f]['median age'],df[mask_f]['Treatable mortality'],label='women')
-plt.xlabel('age (in years)')
-plt.ylabel('mortality per 100,000')
-plt.legend()
-plt.title('Treatable mortality vs. median age in the population by gender');
+
+#+begin_src jupyter-python
+df_age = df[['country','median age','Treatable mortality']]
+df_age['Gender']= df['sex'].replace({'F':'Female', 'M':'Male'})
+figure_age = alt.Chart(df_age).mark_point(filled=True,size=50).encode(
+    alt.X('median age', title='Age (in years)',scale=alt.Scale(domain=[34,48])),
+    alt.Y('Treatable mortality', title='Treatable mortality per 100,000'),
+    color='Gender',
+    tooltip='country'
+)    
+
+figure_age.save('./figures/age_mortality.png')
+figure_age.save('./figures/age_mortality.html')
+
 #+end_src
 
 #+RESULTS:
-[[file:./figures/age.png]]
+
+
 
 *** standardizing data              
 
@@ -1320,10 +1307,9 @@ Figure [[fig:fit_model]] plots the data (points) as in Figure [[fig:GDP_mortalit
 That is, each estimated parameter has a distribution (see below) and each point in the graph represents an observation of a country in a certain year for a given gender. We fill in all the variable values we have for that observation and multiply these values with the whole posterior distribution of the relevant parameter. If we have a missing observation for a variable, we draw from the distribution of this variable. Then we add all these distributions to get to the distribution of (standardized) log mortality. The line-segments indicate 95% of the observations in this posterior distribution for log mortality. All observations (points) fall within their 95% predictive interval (line-segment). In this sense, the fit is quite reasonable.
 
 
-#+caption:  Model fit in terms of log treatable mortality and log GDP per head.
+#+caption:  [[https://janboone.github.io/European-Healthcare-Systems/figures/gdp_mortality_fit.html][Model fit in terms of log treatable mortality and log GDP per head.]]
 #+name: fig:fit_model
 [[file:./figures/gdp_mortality_fit.png]]
-
 
 
 
@@ -1433,85 +1419,77 @@ The model in section ref:sec:theory suggests the following interpretation of the
 **** figure check fit
 
 
-#+begin_src jupyter-python :file ./figures/check_fit.png
-mask_female = (df.sex=='F')
-mask_male = (df.sex=='M')
-import matplotlib.colors as colors
-import matplotlib as mpl
-import matplotlib.cm as mplcm
-import numpy as np
-import statsmodels.api as sm
-log_mortality = standardize(np.log(M))
-percentiles = np.percentile(data_posterior_normal.posterior_predictive.mortality,[2.5,97.5],axis=[0,1])
-# percentiles.shape
+#+begin_src jupyter-python
+
+def standardize(x):
+    x_ma = np.ma.masked_invalid(x)
+    return (x_ma-x_ma.mean())/x_ma.std()
 
 
-plt.style.use('seaborn-dark-palette')
-NUM_COLORS = 24
+data_posterior_simple = az.from_netcdf('./samples_posterior/trace_simple.nc')
+df['Log GDP per capita'] = np.log(df['GDP per capita'])
+df_test = pd.DataFrame()
+df_test['country'] = df['country']
+df_test['log_gdp'] = standardize(np.log(df['GDP per capita']))
+df_test['log_mortality'] = standardize(np.log(df['Treatable mortality']))
+df_test['Gender'] = df['sex'].replace({'F':'Female','M':'Male'})
 
-cm = plt.get_cmap('tab20b') # plt.get_cmap('gist_rainbow')
-cNorm  = colors.Normalize(vmin=0, vmax=NUM_COLORS-1)
-scalarMap = mplcm.ScalarMappable(norm=cNorm, cmap=cm)
+percentiles = np.percentile(data_posterior_simple.posterior_predictive.mortality,[2.5,97.5],axis=[0,1])
 
-#selection = (nurses_doctor_ratio>0)#*(log_gdp<0)
-mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=([scalarMap.to_rgba(i) for i in range(NUM_COLORS)]))
+df_test['perc 25'] = percentiles[0,:]
+df_test['perc 975'] = percentiles[1,:]
 
-fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, sharex=True,figsize=(13,5))
+dots = alt.Chart().mark_point(filled=True).encode(
+    alt.X('log_gdp',title='Log GDP per capita (standardized)'),
+    alt.Y('log_mortality',title='Log treatable mortality (standardized)'),
+    color='country',
+    tooltip=['country']
+)
 
+lines = alt.Chart().mark_errorbar().encode(
+    x=alt.X('log_gdp'),
+    y=alt.Y('perc 25:Q',title=''),
+    y2='perc 975:Q',
+    color='country',
+    tooltip=['country']
 
-# ax2.vlines(log_gdp[mask_male],percentiles[0,:][mask_male],percentiles[1,:][mask_male],color='grey',alpha=0.4)
+)
 
-for country in df.country.unique():
-    mask = (df.country == country)
-    ax1.vlines(log_gdp[mask_female&mask],percentiles[0,:][mask_female&mask],percentiles[1,:][mask_female&mask], color = next(ax1._get_lines.prop_cycler)['color'],alpha=0.3)
-    ax1.scatter(log_gdp[mask&(df.sex=='F')], log_mortality[mask&(df.sex=='F')], label = country)
-    ax2.vlines(log_gdp[mask_male&mask],percentiles[0,:][mask_male&mask],percentiles[1,:][mask_male&mask], color = next(ax2._get_lines.prop_cycler)['color'],alpha=0.3)
-    ax2.scatter(log_gdp[mask&(df.sex=='M')], log_mortality[mask&(df.sex=='M')], label = country)
-    
-ax1.set_xlabel('Log GDP per capita (standardized)')
-ax2.set_xlabel('Log GDP per capita (standardized)')
-ax1.set_ylabel('Log treatable mortality (standardized)')
-ax1.set_title('Female')
-ax2.set_title('Male')
-plt.tight_layout()
-#plt.title('Treatable mortality vs. GDP per head on log-log scales')
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.);
+figure2 = alt.layer(dots,lines,data=df_test).facet(column='Gender:N')
 
+figure2.save('./figures/gdp_mortality_fit.html')
+figure2.save('./figures/gdp_mortality_fit.png')
 #+end_src
-
-
-#+RESULTS:
-[[file:./figures/check_fit.png]]
 
 
 **** figure interaction public/private and primary/inpatient/outpatient
 
 #+begin_src jupyter-python :display plain
-data_posterior_normal_extended = az.from_netcdf('./samples_posterior/trace_normal_extended.nc')
+data_posterior_extended = az.from_netcdf('./samples_posterior/trace_extended.nc')
 #+end_src
 
 #+begin_src jupyter-python
-single_private = data_posterior_normal_extended.posterior.b_single
+single_private = data_posterior_extended.posterior.b_single
 percentiles_single_private = np.percentile(single_private,[2.5,97.5],axis=[0,1])
 
-primary_care_multiple_public = data_posterior_normal_extended.posterior.b_public_primary_care
+primary_care_multiple_public = data_posterior_extended.posterior.b_public_primary_care
 percentiles_primary_care_multiple_public = np.percentile(primary_care_multiple_public,[2.5,97.5],axis=[0,1])
 
-primary_care_single_public = single_private + primary_care_multiple_public + data_posterior_normal_extended.posterior.b_single_public_primary_care
+primary_care_single_public = single_private + primary_care_multiple_public + data_posterior_extended.posterior.b_single_public_primary_care
 percentiles_primary_care_single_public = np.percentile(primary_care_single_public,[2.5,97.5],axis=[0,1])
 
 
-inpatient_care_multiple_public = data_posterior_normal_extended.posterior.b_inpatient_public
+inpatient_care_multiple_public = data_posterior_extended.posterior.b_inpatient_public
 percentiles_inpatient_care_multiple_public = np.percentile(inpatient_care_multiple_public,[2.5,97.5],axis=[0,1])
 
-inpatient_care_single_public = single_private + inpatient_care_multiple_public + data_posterior_normal_extended.posterior.b_single_inpatient_public
+inpatient_care_single_public = single_private + inpatient_care_multiple_public + data_posterior_extended.posterior.b_single_inpatient_public
 percentiles_inpatient_care_single_public = np.percentile(inpatient_care_single_public,[2.5,97.5],axis=[0,1])
 
 
-outpatient_care_multiple_public = data_posterior_normal_extended.posterior.b_outpatient_public
+outpatient_care_multiple_public = data_posterior_extended.posterior.b_outpatient_public
 percentiles_outpatient_care_multiple_public = np.percentile(outpatient_care_multiple_public,[2.5,97.5],axis=[0,1])
 
-outpatient_care_single_public = single_private + outpatient_care_multiple_public + data_posterior_normal_extended.posterior.b_single_outpatient_public
+outpatient_care_single_public = single_private + outpatient_care_multiple_public + data_posterior_extended.posterior.b_single_outpatient_public
 percentiles_outpatient_care_single_public = np.percentile(outpatient_care_single_public,[2.5,97.5],axis=[0,1])
 
 #+end_src
@@ -2138,11 +2116,10 @@ This section provides the python code to generate the trace plots.
 #+begin_src jupyter-python
 variables_expenditure = ['b_hc', 'b_hc1','b_hc2','b_hc3','b_hc4','b_hc5','b_hc6','b_hc7'] 
 variables_health = ['b_female','b_gdp', 'b_female_gdp', 'b_inequality', 'b_smoking', 'b_obese', 'b_alcohol']
-# variables_demand = ['b_social'] #'b_unmet',
-variables_efficiency = ['b_nurses_doctors', 'b_avoidable_hospitalizations', 'b_ce_analysis'] #,'b_gatekeeper'
-variables_market = ['b_hospital_choice', 'b_single','b_public_primary_care','b_inpatient_public','b_outpatient_public'] #  'b_pfp_GP', 'b_capacity_regulation','b_budget','b_primary_care_gatekeeping',
-variables_quality = ['b_healthcare_regulator',  'b_quality_reports'] # 'b_continuous_education',
-variables_interaction = ['b_reports_no_choice'] #, 'b_single_inpatient_public', 'b_single_outpatient_public', 'b_single_public_primary_care'] # 'b_reports_choice',
+variables_efficiency = ['b_nurses_doctors', 'b_avoidable_hospitalizations', 'b_ce_analysis']
+variables_market = ['b_hospital_choice', 'b_single','b_public_primary_care','b_inpatient_public','b_outpatient_public']
+variables_quality = ['b_healthcare_regulator',  'b_quality_reports'] 
+variables_interaction = ['b_reports_no_choice'] #, 'b_single_inpatient_public', 'b_single_outpatient_public', 'b_single_public_primary_care']
 
 #+end_src
 
@@ -2152,7 +2129,7 @@ variables_interaction = ['b_reports_no_choice'] #, 'b_single_inpatient_public', 
 
   #+begin_src jupyter-python :file ./figures/trace_expenditure.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_expenditure);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_expenditure);
 
   #+end_src
 
@@ -2163,7 +2140,7 @@ az.plot_trace(data_posterior_normal.posterior,var_names=variables_expenditure);
 
   #+begin_src jupyter-python :file ./figures/trace_health.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_health);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_health);
 
   #+end_src
 
@@ -2174,7 +2151,7 @@ az.plot_trace(data_posterior_normal.posterior,var_names=variables_health);
 
   #+begin_src jupyter-python :file ./figures/trace_efficiency.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_efficiency);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_efficiency);
 
   #+end_src
 
@@ -2185,7 +2162,7 @@ az.plot_trace(data_posterior_normal.posterior,var_names=variables_efficiency);
 
   #+begin_src jupyter-python :file ./figures/trace_market.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_market);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_market);
 
   #+end_src
 
@@ -2197,7 +2174,7 @@ az.plot_trace(data_posterior_normal.posterior,var_names=variables_market);
 
   #+begin_src jupyter-python :file ./figures/trace_quality.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_quality);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_quality);
 
   #+end_src
 
@@ -2208,7 +2185,7 @@ az.plot_trace(data_posterior_normal.posterior,var_names=variables_quality);
 
   #+begin_src jupyter-python :file ./figures/trace_interaction.png
 az.style.use("arviz-darkgrid")
-az.plot_trace(data_posterior_normal.posterior,var_names=variables_interaction);
+az.plot_trace(data_posterior_simple.posterior,var_names=variables_interaction);
 
   #+end_src
 
