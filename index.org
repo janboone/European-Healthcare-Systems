@@ -111,6 +111,20 @@ We use recent data from Eurostat and OECD to compare the performance of European
 
 #+RESULTS:
 
+* How does this work?                                                  :code:
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+
+With this document, any reader can retrace the code which we used to produce the exact results, figures, tables, graphs, etc. for this paper. 
+
+This file is written in [[https://www.gnu.org/software/emacs/][Emacs]] [[https://orgmode.org/][org mode]] which allows us to combine text and code. The file is exported to pdf (via latex) and to html for the web-version. The web-version --which you are reading now-- contains the sections tagged =code= which are left out of the pdf version of the paper.
+
+We use [[https://www.python.org/][Python]] to program the model, [[https://altair-viz.github.io/][Altair]] for interactive visualizations and [[https://docs.pymc.io/][PyMC3]] for the Bayesian analysis. All these resources are open source and freely available. If you want to install Python, [[https://www.anaconda.com/products/individual][Anaconda]] is a good place to start.
+
+There is a separate [[./getting_data.org][file]] which describes how we get the data from the OECD and Eurostat.
+
+The repository itself can be found [[https://github.com/janboone/European-Healthcare-Systems][here]].
 
 * Introduction
 
@@ -152,7 +166,7 @@ The policy variables related to quality are whether provider quality reports are
 
 Table [[tab:countryleague]] shows the four countries in our data that implement the binary policy choices that our analysis suggests are optimal. They use CE analysis, allow patients to choose their providers, inpatient and primary care are predominantly publicly provided, have a separate healthcare regulator and a single payer system. The two remaining main variables are avoidable hospitalizations and the nurses/doctor ratio. The former should be low and the latter high to minimize mortality. Italy scores well on the avoidable hospitalizations, while Iceland and Slovenia feature high nurses/doctor ratios. This does not imply that these countries have the lowest mortality rates as these are also affected by income, healthcare expenditure and lifestyle choices. Further, a country may not have a single payer system, but such low avoidable hospitalizations that it has lower mortality than these four countries. The table does suggest that it is possible to implement the optimal combinations in practice.
 
-In terms of methods, we use a Bayesian analysis as explained in cite:mcelreath and cite:GelmanBook. In terms of software we use python and the pymc3 library developed by cite:pymc3. The code and data for this paper can be found in the following repository: [[https://github.com/janboone/European-Healthcare-Systems]].
+In terms of methods, we use a Bayesian analysis as explained in cite:mcelreath and cite:GelmanBook. In terms of software we use Python, [[https://altair-viz.github.io/][Altair]] for interactive graphs, and the pymc3 library developed by cite:pymc3 for the Bayesian analysis. The code and data for this paper can be found in the following repository: [[https://github.com/janboone/European-Healthcare-Systems]]. Some figures below have an interactive version that can be accessed by clicking on the caption.
 
 The next section provides the theoretical background for our analysis of healthcare system features on mortality. Then we describe the data sources and variables that we use for this analysis and introduce the model that we estimate. We discuss the results from the estimated model and the policy implications. We finish with a robustness analysis.
 
@@ -181,7 +195,7 @@ In this section we propose a model that helps us think about these variables, th
 
 *** income (inequality)
 
-As mentioned, a major determinant of health is income, here measured as GDP per head. We do not expect an additional euro per head to reduce mortality; more that the order of magnitude has an effect. Hence, we start by considering the relation between mortality and GDP per head on a log-log scale as shown in Figure [[fig:GDP_mortality]]. We have separate mortality data for men and women and the figure shows that women tend to have lower mortality than men. Further, this difference seems to be bigger the lower GDP per head is.
+As mentioned, a major determinant of health is income, here measured as GDP per head. We do not expect an additional euro per head to reduce mortality; more that the order of magnitude has an effect. Hence, we start by considering the relation between mortality and GDP per head on a log-log scale as shown in Figure [[fig:GDP_mortality]]. We have separate mortality data for men and women and the figure shows that women tend to have lower mortality than men. Further, this difference seems to be bigger the lower GDP per head is. As a side note: it is hard to find a color scheme that can clearly distinguish all countries by color. Clicking on the caption of this figure (and other figures below with country data points) takes you to the interactive graph online where hovering over a point shows the country as tooltip.
 
 #+caption: [[https://janboone.github.io/European-Healthcare-Systems/figures/gdp_mortality.html][Relation between log treatable mortality (by gender) and log GDP per head.]]
 #+name: fig:GDP_mortality
@@ -332,7 +346,7 @@ Hence, if new standards push up $\tau_2$, these will tend to increase $\tau_1$ w
 
 As stated by cite:OECD_2020: "Strengthening primary care has been identified as an effective policy tool to improve care coordination and health outcomes and reduce wasteful spending... However, in many EU and OECD countries, primary care has not yet fully realised this potential". Similarly, in the same report: "advanced practice nurses can improve access to services and reduce waiting times, while delivering the same quality of care as doctors for a range of patients". Hence, both primary care and the employment of nurses instead of doctors have the potential to save money which can --for given expenditure-- be used to improve healthcare and reduce mortality.
 
-As shown in Figure [[fig:nurses_doctors]], there is quite some variation in the nurses/doctor ratio among the countries in our data set. In some countries this ratio is close to 1 while in others it almost equals 5. Note that we only include this ratio in our regression, not the number of nurses and doctors. The reason is that we condition on healthcare expenditure which captures level effects. Hence we are interested in the question: for given expenditure, does mortality fall if five times more nurses than doctors are employed?
+As shown in Figure [[fig:nurses_doctors]], there is quite some variation in the nurses/doctor ratio among the countries in our data set. In some countries this ratio is close to 1 (lower line in the figure) while in others it almost equals 5 (top line). Note that we only include this ratio in our regression, not the number of nurses and doctors. The reason is that we condition on healthcare expenditure which captures level effects. Hence we are interested in the question: for given expenditure, does mortality fall if five times more nurses than doctors are employed?
 
 #+caption: [[https://janboone.github.io/European-Healthcare-Systems/figures/doctors_nurses.html][Variation in nurses/doctors ratio across countries and time.]]
 #+name: fig:nurses_doctors

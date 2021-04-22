@@ -62,6 +62,12 @@
 
 #+END_PREFACE
 
+* Introduction
+
+This file describes how we get the data for our project on [[./index.org][European Healthcare Systems]].
+
+In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
+
 * Preamble code
 
 Run this code first before running the code of particular data sets. It imports the relevant libraries.
@@ -85,10 +91,6 @@ EU_countries = ['Belgium', 'Bulgaria', 'Czechia', 'Denmark',
 
 #+RESULTS:
 
-
-* Introduction
-
-In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
 
 * OECD data
 

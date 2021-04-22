@@ -252,59 +252,72 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org850858b">1. Preamble code</a></li>
-<li><a href="#orgf8cc964">2. Introduction</a></li>
-<li><a href="#orgd6c75fb">3. OECD data</a>
+<li><a href="#org1d10f28">1. Introduction</a></li>
+<li><a href="#org160f9e4">2. Preamble code</a></li>
+<li><a href="#org537be12">3. OECD data</a>
 <ul>
-<li><a href="#org0ddddfd">3.1. Health systems data</a></li>
-<li><a href="#orgf600b79">3.2. Avoidable hospital admissions</a></li>
+<li><a href="#org3196518">3.1. Health systems data</a></li>
+<li><a href="#org308bf4d">3.2. Avoidable hospital admissions</a></li>
 </ul>
 </li>
-<li><a href="#org98bcb29">4. Economic and health variables</a>
+<li><a href="#org9eb0d67">4. Economic and health variables</a>
 <ul>
-<li><a href="#orgdfa5f88">4.1. Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</a>
+<li><a href="#org4cbbb7a">4.1. Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</a>
 <ul>
-<li><a href="#orgaecdf36">4.1.1. for robustness analysis</a></li>
+<li><a href="#org19bca84">4.1.1. for robustness analysis</a></li>
 </ul>
 </li>
-<li><a href="#org10efd40">4.2. Economic indicators</a>
+<li><a href="#org9a79ce5">4.2. Economic indicators</a>
 <ul>
-<li><a href="#orgb781709">4.2.1. Main GDP aggregates per capita [nama_10_pc]</a></li>
-<li><a href="#org3dd269f">4.2.2. income quantiles [icw_res_02]</a></li>
+<li><a href="#orgeaec9a9">4.2.1. Main GDP aggregates per capita [nama_10_pc]</a></li>
+<li><a href="#orge5c6d4c">4.2.2. income quantiles [icw_res_02]</a></li>
 </ul>
 </li>
-<li><a href="#orgee3154c">4.3. healthcare expenditures by function [hlth_sha11_hc]</a></li>
-<li><a href="#org3ac3018">4.4. lifestyle determinants of health</a>
+<li><a href="#org428ad9c">4.3. healthcare expenditures by function [hlth_sha11_hc]</a></li>
+<li><a href="#org3da2a4b">4.4. lifestyle determinants of health</a>
 <ul>
-<li><a href="#orga6fa6f7">4.4.1. Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</a></li>
-<li><a href="#org9df8a18">4.4.2. Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</a></li>
-<li><a href="#org8b5a1cc">4.4.3. Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</a></li>
+<li><a href="#orgca2cd90">4.4.1. Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</a></li>
+<li><a href="#org222c440">4.4.2. Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</a></li>
+<li><a href="#org4ef8d83">4.4.3. Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</a></li>
 </ul>
 </li>
-<li><a href="#orgbb826cc">4.5. number of doctors and nurses</a>
+<li><a href="#org91b0513">4.5. number of doctors and nurses</a>
 <ul>
-<li><a href="#org3a78d96">4.5.1. doctors [hlth_rs_prs1]</a></li>
-<li><a href="#orgae94b9d">4.5.2. nurses [hlth_rs_prsns]</a></li>
+<li><a href="#org425d761">4.5.1. doctors [hlth_rs_prs1]</a></li>
+<li><a href="#orgba83627">4.5.2. nurses [hlth_rs_prsns]</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgfde219c">5. merging European data</a>
+<li><a href="#orgbf44155">5. merging European data</a>
 <ul>
-<li><a href="#org2b1fa4f">5.1. merging the health and economic data</a></li>
-<li><a href="#orga6db0b2">5.2. merging with systems data</a></li>
+<li><a href="#orgc09e8d7">5.1. merging the health and economic data</a></li>
+<li><a href="#orgfbea302">5.2. merging with systems data</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="PREFACE" id="orgdfedfd2">
+<div class="PREFACE" id="org3f8e1f2">
 
 </div>
 
-<div id="outline-container-org850858b" class="outline-2">
-<h2 id="org850858b"><span class="section-number-2">1</span> Preamble code</h2>
+<div id="outline-container-org1d10f28" class="outline-2">
+<h2 id="org1d10f28"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+This file describes how we get the data for our project on <a href="./">European Healthcare Systems</a>.
+</p>
+
+<p>
+In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org160f9e4" class="outline-2">
+<h2 id="org160f9e4"><span class="section-number-2">2</span> Preamble code</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Run this code first before running the code of particular data sets. It imports the relevant libraries.
 </p>
@@ -330,21 +343,12 @@ Run this code first before running the code of particular data sets. It imports 
 </div>
 
 
-<div id="outline-container-orgf8cc964" class="outline-2">
-<h2 id="orgf8cc964"><span class="section-number-2">2</span> Introduction</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgd6c75fb" class="outline-2">
-<h2 id="orgd6c75fb"><span class="section-number-2">3</span> OECD data</h2>
+<div id="outline-container-org537be12" class="outline-2">
+<h2 id="org537be12"><span class="section-number-2">3</span> OECD data</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org0ddddfd" class="outline-3">
-<h3 id="org0ddddfd"><span class="section-number-3">3.1</span> Health systems data</h3>
+<div id="outline-container-org3196518" class="outline-3">
+<h3 id="org3196518"><span class="section-number-3">3.1</span> Health systems data</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The OECD Health Systems Characteristics Survey can be found on this <a href="http://qdd.oecd.org/data/HSC">page</a>.
@@ -406,8 +410,8 @@ df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./
 </div>
 
 
-<div id="outline-container-orgf600b79" class="outline-3">
-<h3 id="orgf600b79"><span class="section-number-3">3.2</span> Avoidable hospital admissions</h3>
+<div id="outline-container-org308bf4d" class="outline-3">
+<h3 id="org308bf4d"><span class="section-number-3">3.2</span> Avoidable hospital admissions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 <a class='org-ref-reference' href="#OECD_avoidable_hospitalizations">OECD_avoidable_hospitalizations</a> provides information on avoidable hospitalizations. 
@@ -446,16 +450,16 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-org98bcb29" class="outline-2">
-<h2 id="org98bcb29"><span class="section-number-2">4</span> Economic and health variables</h2>
+<div id="outline-container-org9eb0d67" class="outline-2">
+<h2 id="org9eb0d67"><span class="section-number-2">4</span> Economic and health variables</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 All variables in this section are from the Eurostat website: <a href="https://ec.europa.eu/eurostat/data/database">https://ec.europa.eu/eurostat/data/database</a>
 </p>
 </div>
 
-<div id="outline-container-orgdfa5f88" class="outline-3">
-<h3 id="orgdfa5f88"><span class="section-number-3">4.1</span> Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</h3>
+<div id="outline-container-org4cbbb7a" class="outline-3">
+<h3 id="org4cbbb7a"><span class="section-number-3">4.1</span> Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Preventable mortality is defined as death that can be mainly avoided through public health and primary prevention interventions. Treatable (or amenable) mortality is defined as death that can be mainly avoided through health care interventions, including screening and treatment. Both indicators refer to premature mortality (under age 75). The data is based on the revised OECD/Eurostat lists.
@@ -507,8 +511,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgaecdf36" class="outline-4">
-<h4 id="orgaecdf36"><span class="section-number-4">4.1.1</span> for robustness analysis</h4>
+<div id="outline-container-org19bca84" class="outline-4">
+<h4 id="org19bca84"><span class="section-number-4">4.1.1</span> for robustness analysis</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 In the robustness analyses, we also use potential years of life lost and self-perceived health.
@@ -516,7 +520,7 @@ In the robustness analyses, we also use potential years of life lost and self-pe
 </div>
 
 <ol class="org-ol">
-<li><a id="orgcf32489"></a>potential years of life lost [hlth_cd_apyll]<br />
+<li><a id="orgb679792"></a>potential years of life lost [hlth_cd_apyll]<br />
 <div class="outline-text-5" id="text-4-1-1-1">
 <p>
 Link to data on potential years of life lost by residence:
@@ -552,7 +556,7 @@ df.head<span style="color: #145c33;">()</span>
 </li>
 
 
-<li><a id="orgae73357"></a>self-perceived health [hlth_silc_10]<br />
+<li><a id="orga0bec6f"></a>self-perceived health [hlth_silc_10]<br />
 <div class="outline-text-5" id="text-4-1-1-2">
 <p>
 Link to data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_10/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_10/default/table?lang=en</a>
@@ -594,7 +598,7 @@ df.head<span style="color: #145c33;">()</span>
 </li>
 
 
-<li><a id="org2cb6671"></a>median age [demo_pjanind]<br />
+<li><a id="orgacb5147"></a>median age [demo_pjanind]<br />
 <div class="outline-text-5" id="text-4-1-1-3">
 <p>
 In the paper we consider the relation between median age of the population and mortality, as a check.
@@ -640,16 +644,16 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org10efd40" class="outline-3">
-<h3 id="org10efd40"><span class="section-number-3">4.2</span> Economic indicators</h3>
+<div id="outline-container-org9a79ce5" class="outline-3">
+<h3 id="org9a79ce5"><span class="section-number-3">4.2</span> Economic indicators</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 This section describes the economic indicators in our data.
 </p>
 </div>
 
-<div id="outline-container-orgb781709" class="outline-4">
-<h4 id="orgb781709"><span class="section-number-4">4.2.1</span> Main GDP aggregates per capita [nama_10_pc]</h4>
+<div id="outline-container-orgeaec9a9" class="outline-4">
+<h4 id="orgeaec9a9"><span class="section-number-4">4.2.1</span> Main GDP aggregates per capita [nama_10_pc]</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 <code>B1GQ</code> refers to  "gross domestic product at market prices" and <code>CP_EUR_HAB</code> to "current prices, euro per capita".
@@ -692,8 +696,8 @@ df.head<span style="color: #145c33;">()</span>
 
 
 
-<div id="outline-container-org3dd269f" class="outline-4">
-<h4 id="org3dd269f"><span class="section-number-4">4.2.2</span> income quantiles [icw_res_02]</h4>
+<div id="outline-container-orge5c6d4c" class="outline-4">
+<h4 id="orge5c6d4c"><span class="section-number-4">4.2.2</span> income quantiles [icw_res_02]</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <p>
 We use income quantiles to measure income inequality in the paper. Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/icw_res_02/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/icw_res_02/default/table?lang=en</a>
@@ -739,8 +743,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgee3154c" class="outline-3">
-<h3 id="orgee3154c"><span class="section-number-3">4.3</span> healthcare expenditures by function [hlth_sha11_hc]</h3>
+<div id="outline-container-org428ad9c" class="outline-3">
+<h3 id="org428ad9c"><span class="section-number-3">4.3</span> healthcare expenditures by function [hlth_sha11_hc]</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code=hlth_sha11_hc">https://ec.europa.eu/eurostat/data/database?node_code=hlth_sha11_hc</a>
@@ -792,16 +796,16 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-org3ac3018" class="outline-3">
-<h3 id="org3ac3018"><span class="section-number-3">4.4</span> lifestyle determinants of health</h3>
+<div id="outline-container-org3da2a4b" class="outline-3">
+<h3 id="org3da2a4b"><span class="section-number-3">4.4</span> lifestyle determinants of health</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 In the paper we work with three lifestyle variables: body mass index, alcohol and tobacco consumption.
 </p>
 </div>
 
-<div id="outline-container-orga6fa6f7" class="outline-4">
-<h4 id="orga6fa6f7"><span class="section-number-4">4.4.1</span> Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</h4>
+<div id="outline-container-orgca2cd90" class="outline-4">
+<h4 id="orgca2cd90"><span class="section-number-4">4.4.1</span> Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_BM1I__custom_389481/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_BM1I__custom_389481/default/table?lang=en</a>
@@ -874,8 +878,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org9df8a18" class="outline-4">
-<h4 id="org9df8a18"><span class="section-number-4">4.4.2</span> Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</h4>
+<div id="outline-container-org222c440" class="outline-4">
+<h4 id="org222c440"><span class="section-number-4">4.4.2</span> Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</h4>
 <div class="outline-text-4" id="text-4-4-2">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_SK3I__custom_389732/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_SK3I__custom_389732/default/table?lang=en</a>
@@ -947,8 +951,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org8b5a1cc" class="outline-4">
-<h4 id="org8b5a1cc"><span class="section-number-4">4.4.3</span> Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</h4>
+<div id="outline-container-org4ef8d83" class="outline-4">
+<h4 id="org4ef8d83"><span class="section-number-4">4.4.3</span> Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</h4>
 <div class="outline-text-4" id="text-4-4-3">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/default/table?lang=en</a>
@@ -990,16 +994,16 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgbb826cc" class="outline-3">
-<h3 id="orgbb826cc"><span class="section-number-3">4.5</span> number of doctors and nurses</h3>
+<div id="outline-container-org91b0513" class="outline-3">
+<h3 id="org91b0513"><span class="section-number-3">4.5</span> number of doctors and nurses</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 To calculate the ratio of nurses to doctor, we get the data on the number of doctors and nurses per 100k inhabitants (<code>P_HTHAB</code>).
 </p>
 </div>
 
-<div id="outline-container-org3a78d96" class="outline-4">
-<h4 id="org3a78d96"><span class="section-number-4">4.5.1</span> doctors [hlth_rs_prs1]</h4>
+<div id="outline-container-org425d761" class="outline-4">
+<h4 id="org425d761"><span class="section-number-4">4.5.1</span> doctors [hlth_rs_prs1]</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code=hlth_rs_prs1">https://ec.europa.eu/eurostat/data/database?node_code=hlth_rs_prs1</a>
@@ -1074,8 +1078,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgae94b9d" class="outline-4">
-<h4 id="orgae94b9d"><span class="section-number-4">4.5.2</span> nurses [hlth_rs_prsns]</h4>
+<div id="outline-container-orgba83627" class="outline-4">
+<h4 id="orgba83627"><span class="section-number-4">4.5.2</span> nurses [hlth_rs_prsns]</h4>
 <div class="outline-text-4" id="text-4-5-2">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_rs_prsns/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_rs_prsns/default/table?lang=en</a>
@@ -1114,12 +1118,12 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgfde219c" class="outline-2">
-<h2 id="orgfde219c"><span class="section-number-2">5</span> merging European data</h2>
+<div id="outline-container-orgbf44155" class="outline-2">
+<h2 id="orgbf44155"><span class="section-number-2">5</span> merging European data</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org2b1fa4f" class="outline-3">
-<h3 id="org2b1fa4f"><span class="section-number-3">5.1</span> merging the health and economic data</h3>
+<div id="outline-container-orgc09e8d7" class="outline-3">
+<h3 id="orgc09e8d7"><span class="section-number-3">5.1</span> merging the health and economic data</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 This section merges all the health and economic data sets created above. For each of the data sets in the files lists, we specify the dimensions of the variable; i.e. whether it varies by country (GEO), gender (sex) and year (TIME).
@@ -1165,7 +1169,7 @@ df.head<span style="color: #145c33;">()</span>
 </pre>
 </div>
 
-<pre class="example" id="org754857d">
+<pre class="example" id="org5b31527">
    country  year_x sex  Preventable mortality  Treatable mortality  \
 0  Austria    2011   F                  95.29                67.41   
 1  Austria    2011   M                 248.50                96.86   
@@ -1200,8 +1204,8 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orga6db0b2" class="outline-3">
-<h3 id="orga6db0b2"><span class="section-number-3">5.2</span> merging with systems data</h3>
+<div id="outline-container-orgfbea302" class="outline-3">
+<h3 id="orgfbea302"><span class="section-number-3">5.2</span> merging with systems data</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Here we merge the health and economic data created above with the health system data from the OECD.
