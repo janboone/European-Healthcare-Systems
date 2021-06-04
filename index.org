@@ -7,8 +7,7 @@
 #+BEGIN_PREFACE
 #+LANGUAGE: en
 #+INFOJS_OPT: view:showall toc:t ltoc:t mouse:underline path:http://orgmode.org/org-info.js
-#+LaTeX_CLASS: article-nodefaults
-#+LaTeX_HEADER: \documentclass[12pt,english,a4paper]{article}
+#+LaTeX_CLASS: article-12
 #+LaTeX_HEADER: \usepackage[utf8]{inputenc}
 #+LaTeX_HEADER: \usepackage{sectsty}
 #+LaTeX_HEADER: \sectionfont{\normalfont\scshape}
@@ -74,7 +73,7 @@ We introduce a theoretical framework to analyze the effects on health system per
 
 
 #+latex: \vspace*{\fill}
-#+latex: \institute{\inst{*} Department of Economics, Tilec, Tilburg University and CEPR, London, United Kingdom.}
+#+latex: \institute{\inst{*} Department of Economics, Tilec, Tilburg University and CEPR, London.}
 
 #+LATEX: \newpage
 
