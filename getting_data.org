@@ -175,7 +175,35 @@ df.head()
 : 4  Finland  2012                       212.9
 
 
-* Economic and health variables 
+*** Asthma incidence
+
+We use avoidable hospital admissions as a measure of primary care quality in a country. One could worry that the incidence of asthma is positively correlated with (treatable) mortality across countries. To test this, we also download data on asthma incidence.
+
+Link to the data: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_cd1e/default/table?lang=en
+
+#+begin_src jupyter-python :display plain
+df = eurostat.get_data_df('hlth_ehis_cd1e')
+df.rename({'geo\\time':'geo'},inplace=True,axis=1)
+df['country'] = df['geo'].replace(eurostat_dictionary)
+df = df[df.country.isin(EU_countries) & (df.sex.isin(["M","F"]) ) & (df.hlth_pb.isin(["ASTHMA"])) & (df.unit == "PC") & (df.isced11 == "TOTAL")&(df.age == 'TOTAL')]
+df.drop(["unit","hlth_pb","isced11","age"], axis=1,inplace=True)
+df = pd.melt(df,id_vars=['country','sex'],
+                        value_vars=np.array([2014,2019]),
+                        var_name='year',value_name='asthma percentage')
+df.to_csv('./data/asthma_incidence.csv')
+df.head()
+#+end_src
+
+#+RESULTS:
+:     country sex  year  asthma percentage
+: 0   Austria   F  2014                4.7
+: 1   Belgium   F  2014                4.2
+: 2  Bulgaria   F  2014                3.3
+: 3    Cyprus   F  2014                4.7
+: 4   Czechia   F  2014                5.5
+
+
+* Economic and health variables
 
 All variables in this section are from the Eurostat website: https://ec.europa.eu/eurostat/data/database
 
