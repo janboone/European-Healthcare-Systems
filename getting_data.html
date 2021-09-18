@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Getting Eurostat and OECD data on health and healthcare systems</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Jan Boone" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -30,8 +30,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -40,21 +41,21 @@
   pre.src {
     position: relative;
     overflow: auto;
-    padding-top: 1.2em;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
   pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -190,7 +191,6 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-  /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
@@ -198,18 +198,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<link rel="stylesheet" href="./css/Latex.css">
 <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 
-<script type="text/javascript" src="http://orgmode.org/org-info.js">
+<script src="http://orgmode.org/org-info.js">
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 // @license-end
 </script>
 
-<script type="text/javascript">
+<script>
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
-<!--/*--><![CDATA[/*><!--*/
-org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("TOC_DEPTH", "3");
 org_html_manager.set("LINK_HOME", "");
 org_html_manager.set("LINK_UP", "");
 org_html_manager.set("LOCAL_TOC", "1");
@@ -219,123 +219,122 @@ org_html_manager.set("FIXED_TOC", "0");
 org_html_manager.set("TOC", "1");
 org_html_manager.set("VIEW", "showall");
 org_html_manager.setup();  // activate after the parameters are set
-/*]]>*///-->
 // @license-end
 </script>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Getting Eurostat and OECD data on health and healthcare systems</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1d10f28">1. Introduction</a></li>
-<li><a href="#org160f9e4">2. Preamble code</a></li>
-<li><a href="#org537be12">3. OECD data</a>
+<li><a href="#orgc1db2d8">1. Introduction</a></li>
+<li><a href="#orgc0706f1">2. Preamble code</a></li>
+<li><a href="#org93c8644">3. OECD data</a>
 <ul>
-<li><a href="#org3196518">3.1. Health systems data</a></li>
-<li><a href="#org308bf4d">3.2. Avoidable hospital admissions</a></li>
+<li><a href="#org5835833">3.1. Health systems data</a></li>
+<li><a href="#orge77b344">3.2. Avoidable hospital admissions</a></li>
+<li><a href="#org15dd31c">3.3. Asthma incidence</a></li>
 </ul>
 </li>
-<li><a href="#org9eb0d67">4. Economic and health variables</a>
+<li><a href="#org0ac47e0">4. Economic and health variables</a>
 <ul>
-<li><a href="#org4cbbb7a">4.1. Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</a>
+<li><a href="#org291f0e3">4.1. Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</a></li>
+<li><a href="#orgeec21c7">4.2. for robustness analysis</a>
 <ul>
-<li><a href="#org19bca84">4.1.1. for robustness analysis</a></li>
+<li><a href="#orgd543778">4.2.1. potential years of life lost [hlth_cd_apyll]</a></li>
+<li><a href="#orgd8ce4b3">4.2.2. self-perceived health [hlth_silc_10]</a></li>
+<li><a href="#org79287f3">4.2.3. median age [demo_pjanind]</a></li>
 </ul>
 </li>
-<li><a href="#org9a79ce5">4.2. Economic indicators</a>
+<li><a href="#orge2fb67b">4.3. Economic indicators</a>
 <ul>
-<li><a href="#orgeaec9a9">4.2.1. Main GDP aggregates per capita [nama_10_pc]</a></li>
-<li><a href="#orge5c6d4c">4.2.2. income quantiles [icw_res_02]</a></li>
+<li><a href="#orgd47a87c">4.3.1. Main GDP aggregates per capita [nama_10_pc]</a></li>
+<li><a href="#org2624117">4.3.2. income quantiles [icw_res_02]</a></li>
 </ul>
 </li>
-<li><a href="#org428ad9c">4.3. healthcare expenditures by function [hlth_sha11_hc]</a></li>
-<li><a href="#org3da2a4b">4.4. lifestyle determinants of health</a>
+<li><a href="#org0658062">4.4. healthcare expenditures by function [hlth_sha11_hc]</a></li>
+<li><a href="#orgb6945b8">4.5. lifestyle determinants of health</a>
 <ul>
-<li><a href="#orgca2cd90">4.4.1. Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</a></li>
-<li><a href="#org222c440">4.4.2. Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</a></li>
-<li><a href="#org4ef8d83">4.4.3. Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</a></li>
+<li><a href="#org9ade71d">4.5.1. Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</a></li>
+<li><a href="#org1207db6">4.5.2. Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</a></li>
+<li><a href="#org718ba3d">4.5.3. Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</a></li>
 </ul>
 </li>
-<li><a href="#org91b0513">4.5. number of doctors and nurses</a>
+<li><a href="#orgc15f25b">4.6. number of doctors and nurses</a>
 <ul>
-<li><a href="#org425d761">4.5.1. doctors [hlth_rs_prs1]</a></li>
-<li><a href="#orgba83627">4.5.2. nurses [hlth_rs_prsns]</a></li>
+<li><a href="#orgb0a627d">4.6.1. doctors [hlth_rs_prs1]</a></li>
+<li><a href="#orga694dc4">4.6.2. nurses [hlth_rs_prsns]</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgbf44155">5. merging European data</a>
+<li><a href="#org64395c5">5. merging European data</a>
 <ul>
-<li><a href="#orgc09e8d7">5.1. merging the health and economic data</a></li>
-<li><a href="#orgfbea302">5.2. merging with systems data</a></li>
+<li><a href="#org939cac5">5.1. merging the health and economic data</a></li>
+<li><a href="#org1af571e">5.2. merging with systems data</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="PREFACE" id="org3f8e1f2">
 
-</div>
-
-<div id="outline-container-org1d10f28" class="outline-2">
-<h2 id="org1d10f28"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgc1db2d8" class="outline-2">
+<h2 id="orgc1db2d8"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This file describes how we get the data for our project on <a href="./">European Healthcare Systems</a>.
 </p>
 
 <p>
-In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
+In this file we explain how we get the data and from where and at the same time we generate the data. With the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org160f9e4" class="outline-2">
-<h2 id="org160f9e4"><span class="section-number-2">2</span> Preamble code</h2>
+<div id="outline-container-orgc0706f1" class="outline-2">
+<h2 id="orgc0706f1"><span class="section-number-2">2.</span> Preamble code</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Run this code first before running the code of particular data sets. It imports the relevant libraries.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #5317ac;">import</span> numpy <span style="color: #5317ac;">as</span> np
-<span style="color: #5317ac;">import</span> pandas <span style="color: #5317ac;">as</span> pd
-<span style="color: #5317ac;">from</span> country_codes <span style="color: #5317ac;">import</span> oecd_dictionary, eurostat_dictionary
-<span style="color: #5317ac;">import</span> eurostat
+<pre class="src src-jupyter-python"><span style="color: #51afef; font-style: italic;">import</span> numpy <span style="color: #51afef; font-style: italic;">as</span> np
+<span style="color: #51afef; font-style: italic;">import</span> pandas <span style="color: #51afef; font-style: italic;">as</span> pd
+<span style="color: #51afef; font-style: italic;">from</span> country_codes <span style="color: #51afef; font-style: italic;">import</span> oecd_dictionary, eurostat_dictionary
+<span style="color: #51afef; font-style: italic;">import</span> eurostat
 
-<span style="color: #00538b;">EU_countries</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">'Belgium'</span>, <span style="color: #2544bb;">'Bulgaria'</span>, <span style="color: #2544bb;">'Czechia'</span>, <span style="color: #2544bb;">'Denmark'</span>,
-<span style="color: #2544bb;">'Germany (until 1990 former territory of the FRG)'</span>, <span style="color: #2544bb;">'Germany'</span>,<span style="color: #2544bb;">'Estonia'</span>,
-<span style="color: #2544bb;">'Ireland'</span>, <span style="color: #2544bb;">'Greece'</span>, <span style="color: #2544bb;">'Spain'</span>, <span style="color: #2544bb;">'France'</span>, <span style="color: #2544bb;">'Croatia'</span>, <span style="color: #2544bb;">'Italy'</span>,
-<span style="color: #2544bb;">'Cyprus'</span>, <span style="color: #2544bb;">'Latvia'</span>, <span style="color: #2544bb;">'Lithuania'</span>, <span style="color: #2544bb;">'Luxembourg'</span>, <span style="color: #2544bb;">'Hungary'</span>, <span style="color: #2544bb;">'Malta'</span>,
-<span style="color: #2544bb;">'Netherlands'</span>, <span style="color: #2544bb;">'Austria'</span>, <span style="color: #2544bb;">'Poland'</span>, <span style="color: #2544bb;">'Portugal'</span>, <span style="color: #2544bb;">'Romania'</span>,
-<span style="color: #2544bb;">'Slovenia'</span>, <span style="color: #2544bb;">'Slovakia'</span>, <span style="color: #2544bb;">'Finland'</span>, <span style="color: #2544bb;">'Sweden'</span>, <span style="color: #2544bb;">'United Kingdom'</span>,
-<span style="color: #2544bb;">'Iceland'</span>, <span style="color: #2544bb;">'Liechtenstein'</span>, <span style="color: #2544bb;">'Norway'</span>, <span style="color: #2544bb;">'Switzerland'</span>,
-<span style="color: #2544bb;">'Bosnia and Herzegovina'</span><span style="color: #145c33;">]</span>
+<span style="color: #dcaeea;">EU_countries</span> = [<span style="color: #98be65;">'Belgium'</span>, <span style="color: #98be65;">'Bulgaria'</span>, <span style="color: #98be65;">'Czechia'</span>, <span style="color: #98be65;">'Denmark'</span>,
+<span style="color: #98be65;">'Germany (until 1990 former territory of the FRG)'</span>, <span style="color: #98be65;">'Germany'</span>,<span style="color: #98be65;">'Estonia'</span>,
+<span style="color: #98be65;">'Ireland'</span>, <span style="color: #98be65;">'Greece'</span>, <span style="color: #98be65;">'Spain'</span>, <span style="color: #98be65;">'France'</span>, <span style="color: #98be65;">'Croatia'</span>, <span style="color: #98be65;">'Italy'</span>,
+<span style="color: #98be65;">'Cyprus'</span>, <span style="color: #98be65;">'Latvia'</span>, <span style="color: #98be65;">'Lithuania'</span>, <span style="color: #98be65;">'Luxembourg'</span>, <span style="color: #98be65;">'Hungary'</span>, <span style="color: #98be65;">'Malta'</span>,
+<span style="color: #98be65;">'Netherlands'</span>, <span style="color: #98be65;">'Austria'</span>, <span style="color: #98be65;">'Poland'</span>, <span style="color: #98be65;">'Portugal'</span>, <span style="color: #98be65;">'Romania'</span>,
+<span style="color: #98be65;">'Slovenia'</span>, <span style="color: #98be65;">'Slovakia'</span>, <span style="color: #98be65;">'Finland'</span>, <span style="color: #98be65;">'Sweden'</span>, <span style="color: #98be65;">'United Kingdom'</span>,
+<span style="color: #98be65;">'Iceland'</span>, <span style="color: #98be65;">'Liechtenstein'</span>, <span style="color: #98be65;">'Norway'</span>, <span style="color: #98be65;">'Switzerland'</span>,
+<span style="color: #98be65;">'Bosnia and Herzegovina'</span>]
 
 </pre>
 </div>
@@ -343,31 +342,31 @@ Run this code first before running the code of particular data sets. It imports 
 </div>
 
 
-<div id="outline-container-org537be12" class="outline-2">
-<h2 id="org537be12"><span class="section-number-2">3</span> OECD data</h2>
+<div id="outline-container-org93c8644" class="outline-2">
+<h2 id="org93c8644"><span class="section-number-2">3.</span> OECD data</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org3196518" class="outline-3">
-<h3 id="org3196518"><span class="section-number-3">3.1</span> Health systems data</h3>
+<div id="outline-container-org5835833" class="outline-3">
+<h3 id="org5835833"><span class="section-number-3">3.1.</span> Health systems data</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The OECD Health Systems Characteristics Survey can be found on this <a href="http://qdd.oecd.org/data/HSC">page</a>.
 </p>
 
 <p>
-Click the <code>Excel Download</code> button and save the file in the folder <code>./raw_data</code>. When this data was downloaded, the filename was <code>HSC_22012021_110424.xlsx</code>. Adjust the filename in the code below, if necessary.
+In case you cloned my repository here: Click the <code>Excel Download</code> button and save the file in the folder <code>./raw_data</code>. When this data was downloaded, the filename was <code>HSC_22012021_110424.xlsx</code>. Adjust the filename in the code below, if necessary.
 </p>
 
 <div class="org-src-container">
 <pre class="src src-jupyter-python">
-<span style="color: #00538b;">data</span> = pd.read_excel<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./raw_data/HSC_22012021_110424.xlsx'</span>,<span style="color: #2544bb;">'Table View'</span>,header=<span style="color: #5317ac;">[</span>0,1<span style="color: #5317ac;">]</span>,index_col=<span style="color: #5317ac;">[</span>0<span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">data</span> = pd.read_excel(<span style="color: #98be65;">'./raw_data/HSC_22012021_110424.xlsx'</span>,<span style="color: #98be65;">'Table View'</span>,header=[<span style="color: #da8548; font-weight: bold;">0</span>,<span style="color: #da8548; font-weight: bold;">1</span>],index_col=[<span style="color: #da8548; font-weight: bold;">0</span>])
 
-<span style="color: #00538b;">data_t</span> = data.T
-<span style="color: #00538b;">rename_columns</span> = data_t.rename<span style="color: #145c33;">(</span>index=oecd_dictionary,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-data_t.rename<span style="color: #145c33;">(</span>index=<span style="color: #5317ac;">{</span><span style="color: #2544bb;">'2012 - OECD countries (2012)'</span>:2012,<span style="color: #2544bb;">'2016 - OECD countries (2016)'</span>:2016,<span style="color: #2544bb;">'2018 - Latin American countries (2018)'</span>:2018
-<span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-data_t.rename_axis<span style="color: #145c33;">(</span><span style="color: #5317ac;">(</span><span style="color: #2544bb;">'Country'</span>,<span style="color: #2544bb;">'Year'</span><span style="color: #5317ac;">)</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-data_t.reset_index<span style="color: #145c33;">(</span>inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">data_t</span> = data.T
+<span style="color: #dcaeea;">rename_columns</span> = data_t.rename(index=oecd_dictionary,inplace=<span style="color: #a9a1e1;">True</span>)
+data_t.rename(index={<span style="color: #98be65;">'2012 - OECD countries (2012)'</span>:<span style="color: #da8548; font-weight: bold;">2012</span>,<span style="color: #98be65;">'2016 - OECD countries (2016)'</span>:<span style="color: #da8548; font-weight: bold;">2016</span>,<span style="color: #98be65;">'2018 - Latin American countries (2018)'</span>:<span style="color: #da8548; font-weight: bold;">2018</span>
+},inplace=<span style="color: #a9a1e1;">True</span>)
+data_t.rename_axis((<span style="color: #98be65;">'Country'</span>,<span style="color: #98be65;">'Year'</span>),inplace=<span style="color: #a9a1e1;">True</span>)
+data_t.reset_index(inplace=<span style="color: #a9a1e1;">True</span>)
 </pre>
 </div>
 
@@ -376,7 +375,7 @@ Some countries only have data in one year (2012 or 2016; the year 2018 refers to
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">oecd_data</span> = data_t.query<span style="color: #145c33;">(</span><span style="color: #2544bb;">'Year == 2012 | Year == 2016'</span><span style="color: #145c33;">)</span>.drop_duplicates<span style="color: #145c33;">(</span>subset=<span style="color: #2544bb;">'Country'</span>, keep = <span style="color: #2544bb;">'last'</span><span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">oecd_data</span> = data_t.query(<span style="color: #98be65;">'Year == 2012 | Year == 2016'</span>).drop_duplicates(subset=<span style="color: #98be65;">'Country'</span>, keep = <span style="color: #98be65;">'last'</span>)
 </pre>
 </div>
 
@@ -385,21 +384,20 @@ The next code block generates the dataframe on health system features that we us
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = pd.DataFrame<span style="color: #145c33;">()</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">'Country'</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'Year_system_date'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">'Year'</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'single payer system'</span><span style="color: #145c33;">]</span> = <span style="color: #145c33;">(</span>oecd_data<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'2.a. What is the main source of basic health care coverage in your country? (Q2)'</span><span style="color: #5317ac;">]</span>.isin<span style="color: #5317ac;">(</span><span style="color: #005a5f;">[</span><span style="color: #2544bb;">'A national health system covering the country as a whole'</span>,<span style="color: #2544bb;">'A single health insurance fund (single-payer model)'</span><span style="color: #005a5f;">]</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'inpatient public'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">'31.a. Are physicians supplying in-patient specialist services predominantly (Q31a)'</span><span style="color: #145c33;">]</span>.isin<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'Publically employed'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'outpatient public'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">"25a. Are outpatient specialists' services provided predominantly in: (Q25a)"</span><span style="color: #145c33;">]</span>.isin<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'Outpatient departments of public hospitals'</span>,<span style="color: #2544bb;">'Public multi-specialty clinic'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'public primary care'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">"29.a. Are physicians supplying primary care services predominantly (Q29a)"</span><span style="color: #145c33;">]</span>.isin<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'Publically employed'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>
-
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'free hospital choice'</span><span style="color: #145c33;">]</span> = <span style="color: #145c33;">(</span>oecd_data<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'</span><span style="color: #5317ac;">]</span> == <span style="color: #2544bb;">'Patients can choose any hospital without any consequence for the level of coverage'</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">int</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'almost free hospital choice'</span><span style="color: #145c33;">]</span> = oecd_data<span style="color: #145c33;">[</span><span style="color: #2544bb;">'40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'</span><span style="color: #145c33;">]</span> == <span style="color: #2544bb;">'Patients are free to choose any hospital but they have financial incentives to choose some providers, please specify'</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'public provider quality reports'</span><span style="color: #145c33;">]</span> = <span style="color: #145c33;">(</span>oecd_data<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'71. Are these metrics publicly reported at the provider level at least annually? (Q71)'</span><span style="color: #5317ac;">]</span> == <span style="color: #2544bb;">'Yes'</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">int</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'healthcare regulator'</span><span style="color: #145c33;">]</span> = <span style="color: #145c33;">(</span>oecd_data<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'66. Is there an organisation with responsibility for national policy on health care quality in your country? (Q66)'</span><span style="color: #5317ac;">]</span> == <span style="color: #2544bb;">'Yes'</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">int</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'ce analysis'</span><span style="color: #145c33;">]</span> = <span style="color: #145c33;">(</span>oecd_data<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'62.b. Do HTAs generally include results of economic evaluation? (Q62b)'</span><span style="color: #5317ac;">]</span> == <span style="color: #2544bb;">'Yes'</span><span style="color: #145c33;">)</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">int</span><span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/oecd_systems.csv'</span><span style="color: #145c33;">)</span>
-<span style="color: #8f0075;">len</span><span style="color: #145c33;">(</span>df<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = pd.DataFrame()
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = oecd_data[<span style="color: #98be65;">'Country'</span>]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'Year_system_date'</span>] = oecd_data[<span style="color: #98be65;">'Year'</span>]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'single payer system'</span>] = (oecd_data[<span style="color: #98be65;">'2.a. What is the main source of basic health care coverage in your country? (Q2)'</span>].isin([<span style="color: #98be65;">'A national health system covering the country as a whole'</span>,<span style="color: #98be65;">'A single health insurance fund (single-payer model)'</span>])).astype(<span style="color: #c678dd;">float</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'inpatient public'</span>] = oecd_data[<span style="color: #98be65;">'31.a. Are physicians supplying in-patient specialist services predominantly (Q31a)'</span>].isin([<span style="color: #98be65;">'Publically employed'</span>]).astype(<span style="color: #c678dd;">float</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'outpatient public'</span>] = oecd_data[<span style="color: #98be65;">"25a. Are outpatient specialists' services provided predominantly in: (Q25a)"</span>].isin([<span style="color: #98be65;">'Outpatient departments of public hospitals'</span>,<span style="color: #98be65;">'Public multi-specialty clinic'</span>]).astype(<span style="color: #c678dd;">float</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'public primary care'</span>] = oecd_data[<span style="color: #98be65;">"29.a. Are physicians supplying primary care services predominantly (Q29a)"</span>].isin([<span style="color: #98be65;">'Publically employed'</span>]).astype(<span style="color: #c678dd;">float</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'free hospital choice'</span>] = (oecd_data[<span style="color: #98be65;">'40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'</span>] == <span style="color: #98be65;">'Patients can choose any hospital without any consequence for the level of coverage'</span>).astype(<span style="color: #c678dd;">int</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'almost free hospital choice'</span>] = oecd_data[<span style="color: #98be65;">'40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'</span>] == <span style="color: #98be65;">'Patients are free to choose any hospital but they have financial incentives to choose some providers, please specify'</span>
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'public provider quality reports'</span>] = (oecd_data[<span style="color: #98be65;">'71. Are these metrics publicly reported at the provider level at least annually? (Q71)'</span>] == <span style="color: #98be65;">'Yes'</span>).astype(<span style="color: #c678dd;">int</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'healthcare regulator'</span>] = (oecd_data[<span style="color: #98be65;">'66. Is there an organisation with responsibility for national policy on health care quality in your country? (Q66)'</span>] == <span style="color: #98be65;">'Yes'</span>).astype(<span style="color: #c678dd;">int</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'ce analysis'</span>] = (oecd_data[<span style="color: #98be65;">'62.b. Do HTAs generally include results of economic evaluation? (Q62b)'</span>] == <span style="color: #98be65;">'Yes'</span>).astype(<span style="color: #c678dd;">int</span>)
+df.to_csv(<span style="color: #98be65;">'./data/oecd_systems.csv'</span>)
+<span style="color: #c678dd;">len</span>(df)
 </pre>
 </div>
 
@@ -410,15 +408,15 @@ df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./
 </div>
 
 
-<div id="outline-container-org308bf4d" class="outline-3">
-<h3 id="org308bf4d"><span class="section-number-3">3.2</span> Avoidable hospital admissions</h3>
+<div id="outline-container-orge77b344" class="outline-3">
+<h3 id="orge77b344"><span class="section-number-3">3.2.</span> Avoidable hospital admissions</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
-<a class='org-ref-reference' href="#OECD_avoidable_hospitalizations">OECD_avoidable_hospitalizations</a> provides information on avoidable hospitalizations. 
+[<a href="#OECD_avoidable_hospitalizations">OECD(2019)</a>] provides information on avoidable hospitalizations. 
 </p>
 
 <p>
-Download the excell file Asthma and COPD hospital admission in adults, 2017 (or nearest year) at <a href="https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en">https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en</a> to the folder <code>./raw_data/</code>. Then copy-paste the table in this excel file to the following csv file: <a href="./raw_data/Asthma_COPD.csv">./raw_data/Asthma_COPD.csv</a>
+Download the excel file Asthma and COPD hospital admission in adults, 2017 (or nearest year) at <a href="https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en">https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en</a> to the folder <code>./raw_data/</code>. Then copy-paste the table in this excel file to the following csv file: <a href="./raw_data/Asthma_COPD.csv">./raw_data/Asthma_COPD.csv</a>
 </p>
 
 <p>
@@ -427,13 +425,13 @@ With this csv file in place, we run the code below.
 
 <div class="org-src-container">
 <pre class="src src-jupyter-python">
-<span style="color: #00538b;">df</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./raw_data/Asthma_COPD.csv'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = pd.read_csv(<span style="color: #98be65;">'./raw_data/Asthma_COPD.csv'</span>)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.Country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span> = pd.wide_to_long<span style="color: #145c33;">(</span>df, <span style="color: #5317ac;">[</span><span style="color: #2544bb;">"Asthma"</span><span style="color: #5317ac;">]</span>, i=<span style="color: #2544bb;">"Country"</span>, j=<span style="color: #2544bb;">"year"</span><span style="color: #145c33;">)</span>.reset_index<span style="color: #145c33;">()</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'Country'</span>:<span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'Asthma'</span>:<span style="color: #2544bb;">'avoidable hospitalizations'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/asthma_copd.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span> = df[df.Country.isin(EU_countries)]
+<span style="color: #dcaeea;">df</span> = pd.wide_to_long(df, [<span style="color: #98be65;">"Asthma"</span>], i=<span style="color: #98be65;">"Country"</span>, j=<span style="color: #98be65;">"year"</span>).reset_index()
+df.rename({<span style="color: #98be65;">'Country'</span>:<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'Asthma'</span>:<span style="color: #98be65;">'avoidable hospitalizations'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+df.to_csv(<span style="color: #98be65;">'./data/asthma_copd.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -447,30 +445,72 @@ df.head<span style="color: #145c33;">()</span>
 </pre>
 </div>
 </div>
+
+
+<div id="outline-container-org15dd31c" class="outline-3">
+<h3 id="org15dd31c"><span class="section-number-3">3.3.</span> Asthma incidence</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+We use avoidable hospital admissions as a measure of primary care quality in a country. One could worry that the incidence of asthma is positively correlated with (treatable) mortality across countries. To test this, we also download data on asthma incidence.
+</p>
+
+<p>
+Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_cd1e/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_cd1e/default/table?lang=en</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_ehis_cd1e'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.sex.isin([<span style="color: #98be65;">"M"</span>,<span style="color: #98be65;">"F"</span>]) ) &amp; (df.hlth_pb.isin([<span style="color: #98be65;">"ASTHMA"</span>])) &amp; (df.unit == <span style="color: #98be65;">"PC"</span>) &amp; (df.isced11 == <span style="color: #98be65;">"TOTAL"</span>)&amp;(df.age == <span style="color: #98be65;">'TOTAL'</span>)]
+df.drop([<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"hlth_pb"</span>,<span style="color: #98be65;">"isced11"</span>,<span style="color: #98be65;">"age"</span>], axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>],
+                        value_vars=np.array([<span style="color: #da8548; font-weight: bold;">2014</span>,<span style="color: #da8548; font-weight: bold;">2019</span>]),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'asthma percentage'</span>)
+df.to_csv(<span style="color: #98be65;">'./data/asthma_incidence.csv'</span>)
+df.head()
+</pre>
+</div>
+
+<pre class="example">
+    country sex  year  asthma percentage
+0   Austria   F  2014                4.7
+1   Belgium   F  2014                4.2
+2  Bulgaria   F  2014                3.3
+3    Cyprus   F  2014                4.7
+4   Czechia   F  2014                5.5
+</pre>
+
+
+<p>
+As we only use this data in a figure in the paper (not for estimating the model) and because we only have this for one year overlapping with our data, we will not add this to the main dataframe created in Section <a href="#org64395c5">5</a>.
+</p>
+</div>
+</div>
 </div>
 
 
-<div id="outline-container-org9eb0d67" class="outline-2">
-<h2 id="org9eb0d67"><span class="section-number-2">4</span> Economic and health variables</h2>
+<div id="outline-container-org0ac47e0" class="outline-2">
+<h2 id="org0ac47e0"><span class="section-number-2">4.</span> Economic and health variables</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 All variables in this section are from the Eurostat website: <a href="https://ec.europa.eu/eurostat/data/database">https://ec.europa.eu/eurostat/data/database</a>
 </p>
 </div>
 
-<div id="outline-container-org4cbbb7a" class="outline-3">
-<h3 id="org4cbbb7a"><span class="section-number-3">4.1</span> Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</h3>
+<div id="outline-container-org291f0e3" class="outline-3">
+<h3 id="org291f0e3"><span class="section-number-3">4.1.</span> Treatable and preventable mortality of residents by cause and sex [hlth_cd_apr]</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Preventable mortality is defined as death that can be mainly avoided through public health and primary prevention interventions. Treatable (or amenable) mortality is defined as death that can be mainly avoided through health care interventions, including screening and treatment. Both indicators refer to premature mortality (under age 75). The data is based on the revised OECD/Eurostat lists.
 </p>
 
 <p>
-"The (age-) standardised death rate is a weighted average of age-specific mortality rates. The weighting factor is the age distribution of a standard reference population. The standard reference population used is the European standard population (see annex European standard population - revision 2012) as defined by Eurostat in 2012." from section 3.4 of <a href="https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#unit_measure1591105000535">https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#unit_measure1591105000535</a>
+&ldquo;The (age-) standardised death rate is a weighted average of age-specific mortality rates. The weighting factor is the age distribution of a standard reference population. The standard reference population used is the European standard population (see annex European standard population - revision 2012) as defined by Eurostat in 2012.&rdquo; from section 3.4 of <a href="https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#unit_measure1591105000535">https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#unit_measure1591105000535</a>
 </p>
 
 <p>
-<a href="https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#stat_pres1601631715000">https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#stat_pres1601631715000</a>: death rates are expressed per 100,000 population.
+As explained on <a href="https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#stat_pres1601631715000">this website</a> death rates are expressed per 100,000 population.
 </p>
 
 <p>
@@ -478,25 +518,25 @@ Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code
 </p>
 
 <p>
-<code>icd10</code> refers to the International Statistical Classification of Diseases and Related Health Problems (ICD-10 2010). We use "TOTAL" here; that is, not split up into separate diseases.
+<code>icd10</code> refers to the International Statistical Classification of Diseases and Related Health Problems (ICD-10 2010). We use &ldquo;TOTAL&rdquo; here; that is, not split up into separate diseases.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_cd_apr'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">"F"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span> <span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.mortalit.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"PRVT"</span>,<span style="color: #2544bb;">"TRT"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.unit == <span style="color: #2544bb;">"RT"</span><span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.icd10 == <span style="color: #2544bb;">"TOTAL"</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"icd10"</span>,<span style="color: #2544bb;">"geo"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span>,<span style="color: #2544bb;">'mortalit'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=np.arange<span style="color: #5317ac;">(</span>2011,2018<span style="color: #5317ac;">)</span>,
-                        var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'rate'</span><span style="color: #145c33;">)</span>
-df.set_index<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'sex'</span>,<span style="color: #2544bb;">'mortalit'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df.unstack<span style="color: #145c33;">()</span>
-df.reset_index<span style="color: #145c33;">(</span>inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df.columns</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">' '</span>.join<span style="color: #5317ac;">(</span>col<span style="color: #5317ac;">)</span>.strip<span style="color: #5317ac;">()</span> <span style="color: #5317ac;">for</span> col <span style="color: #5317ac;">in</span> df.columns.values<span style="color: #145c33;">]</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'rate PRVT'</span>:<span style="color: #2544bb;">'Preventable mortality'</span>, <span style="color: #2544bb;">'rate TRT'</span>:<span style="color: #2544bb;">'Treatable mortality'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/preventable_mortality.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_cd_apr'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.sex.isin([<span style="color: #98be65;">"M"</span>,<span style="color: #98be65;">"F"</span>]) ) &amp; (df.mortalit.isin([<span style="color: #98be65;">"PRVT"</span>,<span style="color: #98be65;">"TRT"</span>])) &amp; (df.unit == <span style="color: #98be65;">"RT"</span>) &amp; (df.icd10 == <span style="color: #98be65;">"TOTAL"</span>)]
+df.drop([<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"icd10"</span>,<span style="color: #98be65;">"geo"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>,<span style="color: #98be65;">'mortalit'</span>],
+                        value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2011</span>,<span style="color: #da8548; font-weight: bold;">2018</span>),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'rate'</span>)
+df.set_index([<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'sex'</span>,<span style="color: #98be65;">'mortalit'</span>],inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = df.unstack()
+df.reset_index(inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df.columns</span> = [<span style="color: #98be65;">' '</span>.join(col).strip() <span style="color: #51afef; font-style: italic;">for</span> col <span style="color: #51afef; font-style: italic;">in</span> df.columns.values]
+df.rename({<span style="color: #98be65;">'rate PRVT'</span>:<span style="color: #98be65;">'Preventable mortality'</span>, <span style="color: #98be65;">'rate TRT'</span>:<span style="color: #98be65;">'Treatable mortality'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+df.to_csv(<span style="color: #98be65;">'./data/preventable_mortality.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -509,38 +549,39 @@ df.head<span style="color: #145c33;">()</span>
 4  Austria  2013   F                  93.22                66.84
 </pre>
 </div>
+</div>
 
 
-<div id="outline-container-org19bca84" class="outline-4">
-<h4 id="org19bca84"><span class="section-number-4">4.1.1</span> for robustness analysis</h4>
-<div class="outline-text-4" id="text-4-1-1">
+<div id="outline-container-orgeec21c7" class="outline-3">
+<h3 id="orgeec21c7"><span class="section-number-3">4.2.</span> for robustness analysis</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 In the robustness analyses, we also use potential years of life lost and self-perceived health.
 </p>
 </div>
 
-<ol class="org-ol">
-<li><a id="orgb679792"></a>potential years of life lost [hlth_cd_apyll]<br />
-<div class="outline-text-5" id="text-4-1-1-1">
+<div id="outline-container-orgd543778" class="outline-4">
+<h4 id="orgd543778"><span class="section-number-4">4.2.1.</span> potential years of life lost [hlth_cd_apyll]</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <p>
 Link to data on potential years of life lost by residence:
 <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_cd_apyll/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_cd_apyll/default/table?lang=en</a>
 According to: <a href="https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm">https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm</a>
-"Potential Years of Life Lost (PYLL) &#x2026; is an indicator estimating the potential years lost due to premature death, i.e. death before 70. It is calculated by summing the number of years between the age at death and 70 years for each premature death. PYLL rate is expressed per 100 000 age-standardised population under 70."
+&ldquo;Potential Years of Life Lost (PYLL) &#x2026; is an indicator estimating the potential years lost due to premature death, i.e. death before 70. It is calculated by summing the number of years between the age at death and 70 years for each premature death. PYLL rate is expressed per 100 000 age-standardised population under 70.&rdquo;
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_cd_apyll'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_cd_apyll'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">"F"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span> <span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.icd10 == <span style="color: #2544bb;">"A-R_V-Y"</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"icd10"</span>,<span style="color: #2544bb;">"geo"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=np.arange<span style="color: #5317ac;">(</span>2011,2018<span style="color: #5317ac;">)</span>,
-                        var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'potential years of life lost'</span><span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/years_lost.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.sex.isin([<span style="color: #98be65;">"M"</span>,<span style="color: #98be65;">"F"</span>]) ) &amp; (df.icd10 == <span style="color: #98be65;">"A-R_V-Y"</span>)]
+df.drop([<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"icd10"</span>,<span style="color: #98be65;">"geo"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>],
+                        value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2011</span>,<span style="color: #da8548; font-weight: bold;">2018</span>),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'potential years of life lost'</span>)
+df.to_csv(<span style="color: #98be65;">'./data/years_lost.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -553,36 +594,37 @@ df.head<span style="color: #145c33;">()</span>
 4       Cyprus   F  2011                        1745.0
 </pre>
 </div>
-</li>
+</div>
 
 
-<li><a id="orga0bec6f"></a>self-perceived health [hlth_silc_10]<br />
-<div class="outline-text-5" id="text-4-1-1-2">
+<div id="outline-container-orgd8ce4b3" class="outline-4">
+<h4 id="orgd8ce4b3"><span class="section-number-4">4.2.2.</span> self-perceived health [hlth_silc_10]</h4>
+<div class="outline-text-4" id="text-4-2-2">
 <p>
 Link to data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_10/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_10/default/table?lang=en</a>
 </p>
 
 <p>
-We combine percentage of population (age 16 and older) reporting to be in "Very Good - Good" health (<code>VG_G</code>) and percentage "Bad - Very Bad" (<code>B_VB</code>).
+We combine percentage of population (age 16 and older) reporting to be in &ldquo;Very Good - Good&rdquo; health (<code>VG_G</code>) and percentage &ldquo;Bad - Very Bad&rdquo; (<code>B_VB</code>).
 </p>
 
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_silc_10'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">"F"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span> <span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.levels.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"VG_G"</span>,<span style="color: #2544bb;">"B_VB"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span> &amp;  <span style="color: #5317ac;">(</span>df.age == <span style="color: #2544bb;">"Y_GE16"</span><span style="color: #5317ac;">)</span> &amp;<span style="color: #5317ac;">(</span>df<span style="color: #005a5f;">[</span><span style="color: #2544bb;">'quantile'</span><span style="color: #005a5f;">]</span> == <span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"quantile"</span>,<span style="color: #2544bb;">"geo"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span>,<span style="color: #2544bb;">'levels'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=np.arange<span style="color: #5317ac;">(</span>2011,2020<span style="color: #5317ac;">)</span>,
-                        var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'rate'</span><span style="color: #145c33;">)</span>
-df.set_index<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'sex'</span>,<span style="color: #2544bb;">'levels'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df.unstack<span style="color: #145c33;">()</span>
-df.reset_index<span style="color: #145c33;">(</span>inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df.columns</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">' '</span>.join<span style="color: #5317ac;">(</span>col<span style="color: #5317ac;">)</span>.strip<span style="color: #5317ac;">()</span> <span style="color: #5317ac;">for</span> col <span style="color: #5317ac;">in</span> df.columns.values<span style="color: #145c33;">]</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'rate B_VB'</span>:<span style="color: #2544bb;">'Bad Very Bad'</span>, <span style="color: #2544bb;">'rate VG_G'</span>:<span style="color: #2544bb;">'Very Good Good'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/self_perceived_health.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_silc_10'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.sex.isin([<span style="color: #98be65;">"M"</span>,<span style="color: #98be65;">"F"</span>]) ) &amp; (df.levels.isin([<span style="color: #98be65;">"VG_G"</span>,<span style="color: #98be65;">"B_VB"</span>])) &amp;  (df.age == <span style="color: #98be65;">"Y_GE16"</span>) &amp;(df[<span style="color: #98be65;">'quantile'</span>] == <span style="color: #98be65;">'TOTAL'</span>)]
+df.drop([<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"quantile"</span>,<span style="color: #98be65;">"geo"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>,<span style="color: #98be65;">'levels'</span>],
+                        value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2011</span>,<span style="color: #da8548; font-weight: bold;">2020</span>),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'rate'</span>)
+df.set_index([<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'sex'</span>,<span style="color: #98be65;">'levels'</span>],inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = df.unstack()
+df.reset_index(inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df.columns</span> = [<span style="color: #98be65;">' '</span>.join(col).strip() <span style="color: #51afef; font-style: italic;">for</span> col <span style="color: #51afef; font-style: italic;">in</span> df.columns.values]
+df.rename({<span style="color: #98be65;">'rate B_VB'</span>:<span style="color: #98be65;">'Bad Very Bad'</span>, <span style="color: #98be65;">'rate VG_G'</span>:<span style="color: #98be65;">'Very Good Good'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+df.to_csv(<span style="color: #98be65;">'./data/self_perceived_health.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -595,11 +637,12 @@ df.head<span style="color: #145c33;">()</span>
 4  Austria  2013   F           9.8            66.7
 </pre>
 </div>
-</li>
+</div>
 
 
-<li><a id="orgacb5147"></a>median age [demo_pjanind]<br />
-<div class="outline-text-5" id="text-4-1-1-3">
+<div id="outline-container-org79287f3" class="outline-4">
+<h4 id="org79287f3"><span class="section-number-4">4.2.3.</span> median age [demo_pjanind]</h4>
+<div class="outline-text-4" id="text-4-2-3">
 <p>
 In the paper we consider the relation between median age of the population and mortality, as a check.
 </p>
@@ -609,24 +652,24 @@ Link to data on the median age of population for males and females: <a href="htt
 </p>
 
 <p>
-Variable name <code>MMEDAGEPOP</code> refers to "median age of population - males" and <code>FMEDAGEPOP</code> to  "median age of population - females". 
+Variable name <code>MMEDAGEPOP</code> refers to &ldquo;median age of population - males&rdquo; and <code>FMEDAGEPOP</code> to  &ldquo;median age of population - females&rdquo;. 
 </p>
 
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'demo_pjanind'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'demo_pjanind'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.indic_de.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">'MMEDAGEPOP'</span>,<span style="color: #2544bb;">'FMEDAGEPOP'</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"geo"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'indic_de'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=np.arange<span style="color: #5317ac;">(</span>2011,2020<span style="color: #5317ac;">)</span>,
-                        var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'median age'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'indic_de'</span>:<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-df.replace<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'MMEDAGEPOP'</span>:<span style="color: #2544bb;">'M'</span>,<span style="color: #2544bb;">'FMEDAGEPOP'</span>:<span style="color: #2544bb;">'F'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/population_age.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.indic_de.isin([<span style="color: #98be65;">'MMEDAGEPOP'</span>,<span style="color: #98be65;">'FMEDAGEPOP'</span>]))]
+df.drop([<span style="color: #98be65;">"geo"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'indic_de'</span>],
+                        value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2011</span>,<span style="color: #da8548; font-weight: bold;">2020</span>),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'median age'</span>)
+df.rename({<span style="color: #98be65;">'indic_de'</span>:<span style="color: #98be65;">'sex'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+df.replace({<span style="color: #98be65;">'MMEDAGEPOP'</span>:<span style="color: #98be65;">'M'</span>,<span style="color: #98be65;">'FMEDAGEPOP'</span>:<span style="color: #98be65;">'F'</span>},inplace=<span style="color: #a9a1e1;">True</span>)
+df.to_csv(<span style="color: #98be65;">'./data/population_age.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -639,24 +682,22 @@ df.head<span style="color: #145c33;">()</span>
 4       Cyprus   F  2011        36.5
 </pre>
 </div>
-</li>
-</ol>
 </div>
 </div>
 
-<div id="outline-container-org9a79ce5" class="outline-3">
-<h3 id="org9a79ce5"><span class="section-number-3">4.2</span> Economic indicators</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orge2fb67b" class="outline-3">
+<h3 id="orge2fb67b"><span class="section-number-3">4.3.</span> Economic indicators</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 This section describes the economic indicators in our data.
 </p>
 </div>
 
-<div id="outline-container-orgeaec9a9" class="outline-4">
-<h4 id="orgeaec9a9"><span class="section-number-4">4.2.1</span> Main GDP aggregates per capita [nama_10_pc]</h4>
-<div class="outline-text-4" id="text-4-2-1">
+<div id="outline-container-orgd47a87c" class="outline-4">
+<h4 id="orgd47a87c"><span class="section-number-4">4.3.1.</span> Main GDP aggregates per capita [nama_10_pc]</h4>
+<div class="outline-text-4" id="text-4-3-1">
 <p>
-<code>B1GQ</code> refers to  "gross domestic product at market prices" and <code>CP_EUR_HAB</code> to "current prices, euro per capita".
+<code>B1GQ</code> refers to  &ldquo;gross domestic product at market prices&rdquo; and <code>CP_EUR_HAB</code> to &ldquo;current prices, euro per capita&rdquo;.
 </p>
 
 <p>
@@ -665,21 +706,18 @@ Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code
 
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'nama_10_pc'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.na_item == <span style="color: #2544bb;">'B1GQ'</span><span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.unit == <span style="color: #2544bb;">"CP_EUR_HAB"</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"na_item"</span>,<span style="color: #2544bb;">"geo"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-df.drop<span style="color: #145c33;">(</span>np.arange<span style="color: #5317ac;">(</span>1975,2011<span style="color: #5317ac;">)</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'nama_10_pc'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.na_item == <span style="color: #98be65;">'B1GQ'</span>) &amp; (df.unit == <span style="color: #98be65;">"CP_EUR_HAB"</span>)]
+df.drop([<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"na_item"</span>,<span style="color: #98be65;">"geo"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+df.drop(np.arange(<span style="color: #da8548; font-weight: bold;">1975</span>,<span style="color: #da8548; font-weight: bold;">2011</span>),axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>],
+                        value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2011</span>,<span style="color: #da8548; font-weight: bold;">2021</span>),
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'GDP per capita'</span>)
 
-<span style="color: #505050;"># </span><span style="color: #505050;">for year_column in df.columns[:10]:</span>
-<span style="color: #505050;">#     </span><span style="color: #505050;">df[year_column] = df[year_column].astype(str).str.replace(r' [a-z]', '').astype(float)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=np.arange<span style="color: #5317ac;">(</span>2011,2021<span style="color: #5317ac;">)</span>,
-                        var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'GDP per capita'</span><span style="color: #145c33;">)</span>
-
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/GDP.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+df.to_csv(<span style="color: #98be65;">'./data/GDP.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -696,9 +734,9 @@ df.head<span style="color: #145c33;">()</span>
 
 
 
-<div id="outline-container-orge5c6d4c" class="outline-4">
-<h4 id="orge5c6d4c"><span class="section-number-4">4.2.2</span> income quantiles [icw_res_02]</h4>
-<div class="outline-text-4" id="text-4-2-2">
+<div id="outline-container-org2624117" class="outline-4">
+<h4 id="org2624117"><span class="section-number-4">4.3.2.</span> income quantiles [icw_res_02]</h4>
+<div class="outline-text-4" id="text-4-3-2">
 <p>
 We use income quantiles to measure income inequality in the paper. Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/icw_res_02/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/icw_res_02/default/table?lang=en</a>
 </p>
@@ -707,45 +745,51 @@ We use income quantiles to measure income inequality in the paper. Link to the d
 <code>INC_DISP</code> refers to disposable income.
 </p>
 
+<p>
+As the older year does not overlap with the years of our data, we choose the year 2015.
+</p>
+
 <div class="org-src-container">
 <pre class="src src-jupyter-python">
-<span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'icw_res_02'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'time\\geo'</span>:<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'icw_res_02'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'country'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.indic_il==<span style="color: #2544bb;">'INC_DISP'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.statinfo==<span style="color: #2544bb;">'AVG'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.quant_inc.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">'QU1'</span>, <span style="color: #2544bb;">'QU2'</span>, <span style="color: #2544bb;">'QU3'</span>, <span style="color: #2544bb;">'QU4'</span>, <span style="color: #2544bb;">'QU5'</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.quant_expn==<span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.quant_wlth==<span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'unit'</span>,<span style="color: #2544bb;">'quant_expn'</span>,<span style="color: #2544bb;">'quant_wlth'</span>,<span style="color: #2544bb;">'indic_il'</span>,<span style="color: #2544bb;">'statinfo'</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = df[(df.indic_il==<span style="color: #98be65;">'INC_DISP'</span>)&amp;(df.statinfo==<span style="color: #98be65;">'AVG'</span>)&amp;(df.quant_inc.isin([<span style="color: #98be65;">'QU1'</span>, <span style="color: #98be65;">'QU2'</span>, <span style="color: #98be65;">'QU3'</span>, <span style="color: #98be65;">'QU4'</span>, <span style="color: #98be65;">'QU5'</span>]))&amp;(df.quant_expn==<span style="color: #98be65;">'TOTAL'</span>)&amp;(df.quant_wlth==<span style="color: #98be65;">'TOTAL'</span>)]
+df.drop([<span style="color: #98be65;">'unit'</span>,<span style="color: #98be65;">'quant_expn'</span>,<span style="color: #98be65;">'quant_wlth'</span>,<span style="color: #98be65;">'indic_il'</span>,<span style="color: #98be65;">'statinfo'</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
 
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'quant_inc'</span><span style="color: #5317ac;">]</span>,
-                        value_vars=df.columns<span style="color: #5317ac;">[</span>2:<span style="color: #5317ac;">]</span>.values,
-                        var_name=<span style="color: #2544bb;">'country'</span>,value_name=<span style="color: #2544bb;">'y_'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'quant_inc'</span>],
+                        value_vars=df.columns[<span style="color: #da8548; font-weight: bold;">2</span>:].values,
+                        var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'y_'</span>)
 
 
-df.set_index<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'quant_inc'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df.unstack<span style="color: #145c33;">()</span>
-df.reset_index<span style="color: #145c33;">(</span>inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df.columns</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">''</span>.join<span style="color: #5317ac;">(</span>col<span style="color: #5317ac;">)</span>.strip<span style="color: #5317ac;">()</span> <span style="color: #5317ac;">for</span> col <span style="color: #5317ac;">in</span> df.columns.values<span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/quantile_incomes.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+df.set_index([<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'quant_inc'</span>],inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = df.unstack()
+df.reset_index(inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df.columns</span> = [<span style="color: #98be65;">''</span>.join(col).strip() <span style="color: #51afef; font-style: italic;">for</span> col <span style="color: #51afef; font-style: italic;">in</span> df.columns.values]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'country'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.year==<span style="color: #da8548; font-weight: bold;">2015</span>]
+df.drop([<span style="color: #98be65;">'year'</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+df.to_csv(<span style="color: #98be65;">'./data/quantile_incomes.csv'</span>)
+df.head()
 </pre>
 </div>
 
 <pre class="example">
-    country  year    y_QU1    y_QU2    y_QU3    y_QU4    y_QU5
-0   Austria  2015  16497.2  27961.0  36682.2  48215.5  74495.5
-1   Belgium  2015  15759.0  23305.9  33245.0  44850.4  68273.3
-2  Bulgaria  2015   1847.7   3270.1   5115.9   7451.6  14354.6
-3    Cyprus  2015  11467.4  18180.6  25357.4  35763.9  60673.0
-4   Czechia  2015   5855.1   9334.9  12419.9  16699.2  26053.4
+    country    y_QU1    y_QU2    y_QU3    y_QU4    y_QU5
+1   Austria  16497.2  27961.0  36682.2  48215.5  74495.5
+3   Belgium  15759.0  23305.9  33245.0  44850.4  68273.3
+5  Bulgaria   1847.7   3270.1   5115.9   7451.6  14354.6
+7    Cyprus  11467.4  18180.6  25357.4  35763.9  60673.0
+9   Czechia   5855.1   9334.9  12419.9  16699.2  26053.4
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org428ad9c" class="outline-3">
-<h3 id="org428ad9c"><span class="section-number-3">4.3</span> healthcare expenditures by function [hlth_sha11_hc]</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-org0658062" class="outline-3">
+<h3 id="org0658062"><span class="section-number-3">4.4.</span> healthcare expenditures by function [hlth_sha11_hc]</h3>
+<div class="outline-text-3" id="text-4-4">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code=hlth_sha11_hc">https://ec.europa.eu/eurostat/data/database?node_code=hlth_sha11_hc</a>
 </p>
@@ -759,28 +803,28 @@ In the code, we use regex <code>' [a-z]*'</code> to capture one or more letters 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_sha11_hc'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span> &amp; <span style="color: #5317ac;">(</span>df.unit.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">"EUR_HAB"</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"geo"</span>,<span style="color: #2544bb;">"unit"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'icha11_hc'</span><span style="color: #5317ac;">]</span>,
-   value_vars=np.arange<span style="color: #5317ac;">(</span>2009,2019<span style="color: #5317ac;">)</span>,
-   var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'expenditure'</span><span style="color: #145c33;">)</span>
-df.set_index<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'icha11_hc'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df.unstack<span style="color: #145c33;">()</span>
-df.reset_index<span style="color: #145c33;">(</span>inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df.columns</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">' '</span>.join<span style="color: #5317ac;">(</span>col<span style="color: #5317ac;">)</span>.strip<span style="color: #5317ac;">()</span> <span style="color: #5317ac;">for</span> col <span style="color: #5317ac;">in</span> df.columns.values<span style="color: #145c33;">]</span>
-df.rename<span style="color: #145c33;">(</span>columns=<span style="color: #5317ac;">lambda</span> x: x.lstrip<span style="color: #5317ac;">(</span><span style="color: #2544bb;">'^expenditure '</span><span style="color: #5317ac;">)</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'HC11'</span>, <span style="color: #2544bb;">'HC11_21'</span>, <span style="color: #2544bb;">'HC12'</span>, <span style="color: #2544bb;">'HC12_22'</span>, <span style="color: #2544bb;">'HC13'</span>,
-        <span style="color: #2544bb;">'HC131'</span>, <span style="color: #2544bb;">'HC132'</span>, <span style="color: #2544bb;">'HC133'</span>, <span style="color: #2544bb;">'HC139'</span>, <span style="color: #2544bb;">'HC13_23'</span>, <span style="color: #2544bb;">'HC14'</span>, <span style="color: #2544bb;">'HC14_24'</span>,
-        <span style="color: #2544bb;">'HC1_2'</span>, <span style="color: #2544bb;">'HC21'</span>, <span style="color: #2544bb;">'HC22'</span>, <span style="color: #2544bb;">'HC23'</span>, <span style="color: #2544bb;">'HC24'</span>, <span style="color: #2544bb;">'HC31'</span>, <span style="color: #2544bb;">'HC32'</span>,
-        <span style="color: #2544bb;">'HC33'</span>, <span style="color: #2544bb;">'HC34'</span>, <span style="color: #2544bb;">'HC41'</span>, <span style="color: #2544bb;">'HC42'</span>, <span style="color: #2544bb;">'HC43'</span>, <span style="color: #2544bb;">'HC51'</span>, <span style="color: #2544bb;">'HC511'</span>,
-        <span style="color: #2544bb;">'HC512'</span>, <span style="color: #2544bb;">'HC513'</span>, <span style="color: #2544bb;">'HC52'</span>, <span style="color: #2544bb;">'HC61'</span>, <span style="color: #2544bb;">'HC62'</span>, <span style="color: #2544bb;">'HC63'</span>, <span style="color: #2544bb;">'HC64'</span>, <span style="color: #2544bb;">'HC65'</span>,
-        <span style="color: #2544bb;">'HC66'</span>, <span style="color: #2544bb;">'HC71'</span>, <span style="color: #2544bb;">'HC72'</span>, <span style="color: #2544bb;">'HCR1'</span>, <span style="color: #2544bb;">'HC_UNK'</span>, <span style="color: #2544bb;">'TOT_HC'</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_sha11_hc'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries) &amp; (df.unit.isin([<span style="color: #98be65;">"EUR_HAB"</span>]))]
+df.drop([<span style="color: #98be65;">"geo"</span>,<span style="color: #98be65;">"unit"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'icha11_hc'</span>],
+   value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2009</span>,<span style="color: #da8548; font-weight: bold;">2019</span>),
+   var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'expenditure'</span>)
+df.set_index([<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'icha11_hc'</span>],inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = df.unstack()
+df.reset_index(inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df.columns</span> = [<span style="color: #98be65;">' '</span>.join(col).strip() <span style="color: #51afef; font-style: italic;">for</span> col <span style="color: #51afef; font-style: italic;">in</span> df.columns.values]
+df.rename(columns=<span style="color: #51afef; font-style: italic;">lambda</span> x: x.lstrip(<span style="color: #98be65;">'^expenditure '</span>),inplace=<span style="color: #a9a1e1;">True</span>)
+df.drop([<span style="color: #98be65;">'HC11'</span>, <span style="color: #98be65;">'HC11_21'</span>, <span style="color: #98be65;">'HC12'</span>, <span style="color: #98be65;">'HC12_22'</span>, <span style="color: #98be65;">'HC13'</span>,
+        <span style="color: #98be65;">'HC131'</span>, <span style="color: #98be65;">'HC132'</span>, <span style="color: #98be65;">'HC133'</span>, <span style="color: #98be65;">'HC139'</span>, <span style="color: #98be65;">'HC13_23'</span>, <span style="color: #98be65;">'HC14'</span>, <span style="color: #98be65;">'HC14_24'</span>,
+        <span style="color: #98be65;">'HC1_2'</span>, <span style="color: #98be65;">'HC21'</span>, <span style="color: #98be65;">'HC22'</span>, <span style="color: #98be65;">'HC23'</span>, <span style="color: #98be65;">'HC24'</span>, <span style="color: #98be65;">'HC31'</span>, <span style="color: #98be65;">'HC32'</span>,
+        <span style="color: #98be65;">'HC33'</span>, <span style="color: #98be65;">'HC34'</span>, <span style="color: #98be65;">'HC41'</span>, <span style="color: #98be65;">'HC42'</span>, <span style="color: #98be65;">'HC43'</span>, <span style="color: #98be65;">'HC51'</span>, <span style="color: #98be65;">'HC511'</span>,
+        <span style="color: #98be65;">'HC512'</span>, <span style="color: #98be65;">'HC513'</span>, <span style="color: #98be65;">'HC52'</span>, <span style="color: #98be65;">'HC61'</span>, <span style="color: #98be65;">'HC62'</span>, <span style="color: #98be65;">'HC63'</span>, <span style="color: #98be65;">'HC64'</span>, <span style="color: #98be65;">'HC65'</span>,
+        <span style="color: #98be65;">'HC66'</span>, <span style="color: #98be65;">'HC71'</span>, <span style="color: #98be65;">'HC72'</span>, <span style="color: #98be65;">'HCR1'</span>, <span style="color: #98be65;">'HC_UNK'</span>, <span style="color: #98be65;">'TOT_HC'</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
 
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/expenditure_financing_by_function.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+df.to_csv(<span style="color: #98be65;">'./data/expenditure_financing_by_function.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -796,17 +840,17 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-org3da2a4b" class="outline-3">
-<h3 id="org3da2a4b"><span class="section-number-3">4.4</span> lifestyle determinants of health</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgb6945b8" class="outline-3">
+<h3 id="orgb6945b8"><span class="section-number-3">4.5.</span> lifestyle determinants of health</h3>
+<div class="outline-text-3" id="text-4-5">
 <p>
 In the paper we work with three lifestyle variables: body mass index, alcohol and tobacco consumption.
 </p>
 </div>
 
-<div id="outline-container-orgca2cd90" class="outline-4">
-<h4 id="orgca2cd90"><span class="section-number-4">4.4.1</span> Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</h4>
-<div class="outline-text-4" id="text-4-4-1">
+<div id="outline-container-org9ade71d" class="outline-4">
+<h4 id="org9ade71d"><span class="section-number-4">4.5.1.</span> Body mass index (BMI) by sex, age and income quintile [hlth_ehis_bm1]</h4>
+<div class="outline-text-4" id="text-4-5-1">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_BM1I__custom_389481/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_BM1I__custom_389481/default/table?lang=en</a>
 </p>
@@ -847,40 +891,47 @@ Overview of the categories in the data (we work with <code>BMI_GE30</code> in th
 </tbody>
 </table>
 
+<p>
+The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
+</p>
+
+
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_ehis_bm1i'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'time\\geo'</span>:<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.bmi==<span style="color: #2544bb;">'BMI_GE30'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df<span style="color: #005a5f;">[</span><span style="color: #2544bb;">'quantile'</span><span style="color: #005a5f;">]</span>==<span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">'F'</span>,<span style="color: #2544bb;">'M'</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.age==<span style="color: #2544bb;">'Y15-64'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"quantile"</span>,<span style="color: #2544bb;">"age"</span>,<span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"bmi"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_ehis_bm1i'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span> = df[(df.bmi==<span style="color: #98be65;">'BMI_GE30'</span>)&amp;(df[<span style="color: #98be65;">'quant_inc'</span>]==<span style="color: #98be65;">'TOTAL'</span>)&amp;(df.sex.isin([<span style="color: #98be65;">'F'</span>,<span style="color: #98be65;">'M'</span>]))&amp;(df.age==<span style="color: #98be65;">'Y15-64'</span>)]
+df.drop([<span style="color: #98be65;">"quant_inc"</span>,<span style="color: #98be65;">"age"</span>,<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"bmi"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
 
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>,
-     value_vars=df.columns<span style="color: #5317ac;">[</span>2:<span style="color: #5317ac;">]</span>,
-     var_name=<span style="color: #2544bb;">'geo'</span>,value_name=<span style="color: #2544bb;">'high bmi'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'geo'</span>,<span style="color: #98be65;">'sex'</span>],
+     value_vars=df.columns[<span style="color: #da8548; font-weight: bold;">2</span>:],
+     var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'high bmi'</span>)
 
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'geo'</span>,<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'high bmi'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'high bmi'</span><span style="color: #145c33;">]</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>/100.0
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/high_bmi.csv'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.year==<span style="color: #da8548; font-weight: bold;">2014</span>]
+df.drop([<span style="color: #98be65;">'geo'</span>,<span style="color: #98be65;">'year'</span>],inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries)]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'high bmi'</span>] = df[<span style="color: #98be65;">'high bmi'</span>].astype(<span style="color: #c678dd;">float</span>)/<span style="color: #da8548; font-weight: bold;">100.0</span>
+df.to_csv(<span style="color: #98be65;">'./data/high_bmi.csv'</span>)
 
-df.head<span style="color: #145c33;">()</span>
+df.head()
 </pre>
 </div>
 
 <pre class="example">
-  sex  high bmi   country
-4   F     0.129   Belgium
-5   M     0.126   Belgium
-6   F     0.116  Bulgaria
-7   M     0.146  Bulgaria
-8   F     0.160   Czechia
+   sex  high bmi   country
+68   F     0.113   Austria
+69   F     0.129   Belgium
+70   F     0.116  Bulgaria
+71   F     0.097    Cyprus
+72   F     0.160   Czechia
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org222c440" class="outline-4">
-<h4 id="org222c440"><span class="section-number-4">4.4.2</span> Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</h4>
-<div class="outline-text-4" id="text-4-4-2">
+
+<div id="outline-container-org1207db6" class="outline-4">
+<h4 id="org1207db6"><span class="section-number-4">4.5.2.</span> Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]</h4>
+<div class="outline-text-4" id="text-4-5-2">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_SK3I__custom_389732/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/HLTH_EHIS_SK3I__custom_389732/default/table?lang=en</a>
 </p>
@@ -922,21 +973,21 @@ We choose fraction of people smoking 20 or more cigarettes a day (<code>SM_GE20D
 </table>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_ehis_sk3i'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'time\\geo'</span>:<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_ehis_sk3i'</span>)
+df.rename({<span style="color: #98be65;">'time\\geo'</span>:<span style="color: #98be65;">'year'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.age==<span style="color: #2544bb;">'Y15-64'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.smoking==<span style="color: #2544bb;">'SM_GE20D'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df<span style="color: #005a5f;">[</span><span style="color: #2544bb;">'quantile'</span><span style="color: #005a5f;">]</span>==<span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">'F'</span>,<span style="color: #2544bb;">'M'</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"quantile"</span>,<span style="color: #2544bb;">"age"</span>,<span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"smoking"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>,
-     value_vars=df.columns<span style="color: #5317ac;">[</span>2:<span style="color: #5317ac;">]</span>,
-     var_name=<span style="color: #2544bb;">'geo'</span>,value_name=<span style="color: #2544bb;">'smoking'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = df[(df.age==<span style="color: #98be65;">'Y15-64'</span>)&amp;(df.smoking==<span style="color: #98be65;">'SM_GE20D'</span>)&amp;(df[<span style="color: #98be65;">'quant_inc'</span>]==<span style="color: #98be65;">'TOTAL'</span>)&amp;(df.sex.isin([<span style="color: #98be65;">'F'</span>,<span style="color: #98be65;">'M'</span>]))]
+df.drop([<span style="color: #98be65;">"quant_inc"</span>,<span style="color: #98be65;">"age"</span>,<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"smoking"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'sex'</span>],
+     value_vars=df.columns[<span style="color: #da8548; font-weight: bold;">2</span>:],
+     var_name=<span style="color: #98be65;">'geo'</span>,value_name=<span style="color: #98be65;">'smoking'</span>)
 
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'geo'</span>,<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'smoking'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'smoking'</span><span style="color: #145c33;">]</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>/100.0
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/smoking.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+df.drop([<span style="color: #98be65;">'geo'</span>,<span style="color: #98be65;">'year'</span>],inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries)]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'smoking'</span>] = df[<span style="color: #98be65;">'smoking'</span>].astype(<span style="color: #c678dd;">float</span>)/<span style="color: #da8548; font-weight: bold;">100.0</span>
+df.to_csv(<span style="color: #98be65;">'./data/smoking.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -951,60 +1002,65 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org4ef8d83" class="outline-4">
-<h4 id="org4ef8d83"><span class="section-number-4">4.4.3</span> Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</h4>
-<div class="outline-text-4" id="text-4-4-3">
+<div id="outline-container-org718ba3d" class="outline-4">
+<h4 id="org718ba3d"><span class="section-number-4">4.5.3.</span> Frequency of heavy episodic drinking by sex, age and educational attainment level [hlth_ehis_al3e]</h4>
+<div class="outline-text-4" id="text-4-5-3">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/default/table?lang=en</a>
 </p>
 
 <p>
-Here we choose fraction of people with a "frequency of heavy drinking every month" (<code>MTH</code>), again with the age category 15-64,
+Here we choose fraction of people with a &ldquo;frequency of heavy drinking every month&rdquo; (<code>MTH</code>), again with the age category 15-64,
+</p>
+
+<p>
+The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_ehis_al3e'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'time\\geo'</span>:<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_ehis_al3e'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.age==<span style="color: #2544bb;">'Y15-64'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.sex.isin<span style="color: #005a5f;">(</span><span style="color: #863927;">[</span><span style="color: #2544bb;">'F'</span>,<span style="color: #2544bb;">'M'</span><span style="color: #863927;">]</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.isced11==<span style="color: #2544bb;">'TOTAL'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.frequenc==<span style="color: #2544bb;">'MTH'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"isced11"</span>,<span style="color: #2544bb;">"age"</span>,<span style="color: #2544bb;">"unit"</span>,<span style="color: #2544bb;">"frequenc"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>,
-     value_vars=df.columns<span style="color: #5317ac;">[</span>2:<span style="color: #5317ac;">]</span>,
-     var_name=<span style="color: #2544bb;">'geo'</span>,value_name=<span style="color: #2544bb;">'binge drinking'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = df[(df.age==<span style="color: #98be65;">'Y15-64'</span>)&amp;(df.sex.isin([<span style="color: #98be65;">'F'</span>,<span style="color: #98be65;">'M'</span>]))&amp;(df.isced11==<span style="color: #98be65;">'TOTAL'</span>)&amp;(df.frequenc==<span style="color: #98be65;">'MTH'</span>)]
+df.drop([<span style="color: #98be65;">"isced11"</span>,<span style="color: #98be65;">"age"</span>,<span style="color: #98be65;">"unit"</span>,<span style="color: #98be65;">"frequenc"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'geo'</span>,<span style="color: #98be65;">'sex'</span>],
+     value_vars=df.columns[<span style="color: #da8548; font-weight: bold;">2</span>:],
+     var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'binge drinking'</span>)
 
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">'geo'</span>,<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span>df.country.isin<span style="color: #5317ac;">(</span>EU_countries<span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'binge drinking'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'binge drinking'</span><span style="color: #145c33;">]</span>.astype<span style="color: #145c33;">(</span><span style="color: #8f0075;">float</span><span style="color: #145c33;">)</span>/100.0
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/alcohol.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
+<span style="color: #dcaeea;">df</span> = df[df.year==<span style="color: #da8548; font-weight: bold;">2014</span>]
+df.drop([<span style="color: #98be65;">'geo'</span>,<span style="color: #98be65;">'year'</span>],inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span> = df[df.country.isin(EU_countries)]
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'binge drinking'</span>] = df[<span style="color: #98be65;">'binge drinking'</span>].astype(<span style="color: #c678dd;">float</span>)/<span style="color: #da8548; font-weight: bold;">100.0</span>
+df.to_csv(<span style="color: #98be65;">'./data/alcohol.csv'</span>)
+df.head()
 </pre>
 </div>
 
 <pre class="example">
-  sex  binge drinking   country
-4   F           0.162   Belgium
-5   M           0.272   Belgium
-6   F           0.107  Bulgaria
-7   M           0.253  Bulgaria
-8   F           0.089   Czechia
+   sex  binge drinking   country
+68   F           0.129   Austria
+69   F           0.162   Belgium
+70   F           0.107  Bulgaria
+71   F           0.017    Cyprus
+72   F           0.089   Czechia
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org91b0513" class="outline-3">
-<h3 id="org91b0513"><span class="section-number-3">4.5</span> number of doctors and nurses</h3>
-<div class="outline-text-3" id="text-4-5">
+<div id="outline-container-orgc15f25b" class="outline-3">
+<h3 id="orgc15f25b"><span class="section-number-3">4.6.</span> number of doctors and nurses</h3>
+<div class="outline-text-3" id="text-4-6">
 <p>
 To calculate the ratio of nurses to doctor, we get the data on the number of doctors and nurses per 100k inhabitants (<code>P_HTHAB</code>).
 </p>
 </div>
 
-<div id="outline-container-org425d761" class="outline-4">
-<h4 id="org425d761"><span class="section-number-4">4.5.1</span> doctors [hlth_rs_prs1]</h4>
-<div class="outline-text-4" id="text-4-5-1">
+<div id="outline-container-orgb0a627d" class="outline-4">
+<h4 id="orgb0a627d"><span class="section-number-4">4.6.1.</span> doctors [hlth_rs_prs1]</h4>
+<div class="outline-text-4" id="text-4-6-1">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/data/database?node_code=hlth_rs_prs1">https://ec.europa.eu/eurostat/data/database?node_code=hlth_rs_prs1</a>
 </p>
@@ -1052,17 +1108,17 @@ We choose the general category <code>OC221</code> and doctors who are practising
 
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_rs_prs1'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_rs_prs1'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.country.isin<span style="color: #005a5f;">(</span>EU_countries<span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.isco08==<span style="color: #2544bb;">'OC221'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.wstatus==<span style="color: #2544bb;">'PRACT'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df<span style="color: #005a5f;">[</span><span style="color: #2544bb;">'unit'</span><span style="color: #005a5f;">]</span>==<span style="color: #2544bb;">'P_HTHAB'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"isco08"</span>,<span style="color: #2544bb;">"geo"</span>,<span style="color: #2544bb;">"wstatus"</span>,<span style="color: #2544bb;">"unit"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span>,
-     value_vars=np.arange<span style="color: #5317ac;">(</span>2006,2020<span style="color: #5317ac;">)</span>,
-     var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'Practising medical doctors per 100k'</span><span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/doctors.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span> = df[(df.country.isin(EU_countries))&amp;(df.isco08==<span style="color: #98be65;">'OC221'</span>)&amp;(df.wstatus==<span style="color: #98be65;">'PRACT'</span>)&amp;(df[<span style="color: #98be65;">'unit'</span>]==<span style="color: #98be65;">'P_HTHAB'</span>)]
+df.drop([<span style="color: #98be65;">"isco08"</span>,<span style="color: #98be65;">"geo"</span>,<span style="color: #98be65;">"wstatus"</span>,<span style="color: #98be65;">"unit"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>],
+     value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2006</span>,<span style="color: #da8548; font-weight: bold;">2020</span>),
+     var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'Practising medical doctors per 100k'</span>)
+df.to_csv(<span style="color: #98be65;">'./data/doctors.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -1078,9 +1134,9 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgba83627" class="outline-4">
-<h4 id="orgba83627"><span class="section-number-4">4.5.2</span> nurses [hlth_rs_prsns]</h4>
-<div class="outline-text-4" id="text-4-5-2">
+<div id="outline-container-orga694dc4" class="outline-4">
+<h4 id="orga694dc4"><span class="section-number-4">4.6.2.</span> nurses [hlth_rs_prsns]</h4>
+<div class="outline-text-4" id="text-4-6-2">
 <p>
 Link to the data: <a href="https://ec.europa.eu/eurostat/databrowser/view/hlth_rs_prsns/default/table?lang=en">https://ec.europa.eu/eurostat/databrowser/view/hlth_rs_prsns/default/table?lang=en</a>
 </p>
@@ -1090,17 +1146,17 @@ We work with nurses and midwifes (<code>OC222_322</code>) who are practising (<c
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #00538b;">df</span> = eurostat.get_data_df<span style="color: #145c33;">(</span><span style="color: #2544bb;">'hlth_rs_prsns'</span><span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'geo\\time'</span>:<span style="color: #2544bb;">'geo'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span><span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span> = df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'geo'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span>eurostat_dictionary<span style="color: #145c33;">)</span>
+<pre class="src src-jupyter-python"><span style="color: #dcaeea;">df</span> = eurostat.get_data_df(<span style="color: #98be65;">'hlth_rs_prsns'</span>)
+df.rename({<span style="color: #98be65;">'geo\\time'</span>:<span style="color: #98be65;">'geo'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #dcaeea;">df</span>[<span style="color: #98be65;">'country'</span>] = df[<span style="color: #98be65;">'geo'</span>].replace(eurostat_dictionary)
 
-<span style="color: #00538b;">df</span> = df<span style="color: #145c33;">[</span><span style="color: #5317ac;">(</span>df.country.isin<span style="color: #005a5f;">(</span>EU_countries<span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.isco08==<span style="color: #2544bb;">'OC222_322'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df.wstatus==<span style="color: #2544bb;">'PRACT'</span><span style="color: #5317ac;">)</span>&amp;<span style="color: #5317ac;">(</span>df<span style="color: #005a5f;">[</span><span style="color: #2544bb;">'unit'</span><span style="color: #005a5f;">]</span>==<span style="color: #2544bb;">'P_HTHAB'</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"isco08"</span>,<span style="color: #2544bb;">"geo"</span>,<span style="color: #2544bb;">"wstatus"</span>,<span style="color: #2544bb;">"unit"</span><span style="color: #5317ac;">]</span>,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df</span> = pd.melt<span style="color: #145c33;">(</span>df,id_vars=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span>,
-     value_vars=np.arange<span style="color: #5317ac;">(</span>2006,2020<span style="color: #5317ac;">)</span>,
-     var_name=<span style="color: #2544bb;">'year'</span>,value_name=<span style="color: #2544bb;">'Practising nurses and midwives per 100k'</span><span style="color: #145c33;">)</span>
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/nurses.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #dcaeea;">df</span> = df[(df.country.isin(EU_countries))&amp;(df.isco08==<span style="color: #98be65;">'OC222_322'</span>)&amp;(df.wstatus==<span style="color: #98be65;">'PRACT'</span>)&amp;(df[<span style="color: #98be65;">'unit'</span>]==<span style="color: #98be65;">'P_HTHAB'</span>)]
+df.drop([<span style="color: #98be65;">"isco08"</span>,<span style="color: #98be65;">"geo"</span>,<span style="color: #98be65;">"wstatus"</span>,<span style="color: #98be65;">"unit"</span>],axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+<span style="color: #dcaeea;">df</span> = pd.melt(df,id_vars=[<span style="color: #98be65;">'country'</span>],
+     value_vars=np.arange(<span style="color: #da8548; font-weight: bold;">2006</span>,<span style="color: #da8548; font-weight: bold;">2020</span>),
+     var_name=<span style="color: #98be65;">'year'</span>,value_name=<span style="color: #98be65;">'Practising nurses and midwives per 100k'</span>)
+df.to_csv(<span style="color: #98be65;">'./data/nurses.csv'</span>)
+df.head()
 </pre>
 </div>
 
@@ -1118,114 +1174,115 @@ df.head<span style="color: #145c33;">()</span>
 </div>
 
 
-<div id="outline-container-orgbf44155" class="outline-2">
-<h2 id="orgbf44155"><span class="section-number-2">5</span> merging European data</h2>
+<div id="outline-container-org64395c5" class="outline-2">
+<h2 id="org64395c5"><span class="section-number-2">5.</span> merging European data</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgc09e8d7" class="outline-3">
-<h3 id="orgc09e8d7"><span class="section-number-3">5.1</span> merging the health and economic data</h3>
+<div id="outline-container-org939cac5" class="outline-3">
+<h3 id="org939cac5"><span class="section-number-3">5.1.</span> merging the health and economic data</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 This section merges all the health and economic data sets created above. For each of the data sets in the files lists, we specify the dimensions of the variable; i.e. whether it varies by country (GEO), gender (sex) and year (TIME).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #5317ac;">import</span> pandas <span style="color: #5317ac;">as</span> pd
+<pre class="src src-jupyter-python"><span style="color: #51afef; font-style: italic;">import</span> pandas <span style="color: #51afef; font-style: italic;">as</span> pd
 
-<span style="color: #00538b;">df</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/preventable_mortality.csv'</span><span style="color: #145c33;">)</span>
-
-<span style="color: #00538b;">files_list</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">'doctors.csv'</span>,<span style="color: #2544bb;">'GDP.csv'</span>,<span style="color: #2544bb;">'nurses.csv'</span>,<span style="color: #2544bb;">'asthma_copd.csv'</span>,<span style="color: #2544bb;">'expenditure_financing_by_function.csv'</span><span style="color: #145c33;">]</span> <span style="color: #505050;"># </span><span style="color: #505050;">GEO, TIME  </span>
-
-<span style="color: #00538b;">second_list</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">'high_bmi.csv'</span>,<span style="color: #2544bb;">'smoking.csv'</span>,<span style="color: #2544bb;">'alcohol.csv'</span><span style="color: #145c33;">]</span> <span style="color: #505050;"># </span><span style="color: #505050;">GEO, sex</span>
-
-<span style="color: #00538b;">third_list</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">'years_lost.csv'</span>,<span style="color: #2544bb;">'population_age.csv'</span>, <span style="color: #2544bb;">'self_perceived_health.csv'</span><span style="color: #145c33;">]</span> <span style="color: #505050;"># </span><span style="color: #505050;">GEO, TIME, sex </span>
+<span style="color: #dcaeea;">df</span> = pd.read_csv(<span style="color: #98be65;">'./data/preventable_mortality.csv'</span>)
 
 
-<span style="color: #00538b;">fourth_list</span> = <span style="color: #145c33;">[</span><span style="color: #2544bb;">'quantile_incomes.csv'</span><span style="color: #145c33;">]</span> <span style="color: #505050;"># </span><span style="color: #505050;">GEO</span>
+<span style="color: #dcaeea;">files_list</span> = [<span style="color: #98be65;">'doctors.csv'</span>,<span style="color: #98be65;">'GDP.csv'</span>,<span style="color: #98be65;">'nurses.csv'</span>,<span style="color: #98be65;">'asthma_copd.csv'</span>,<span style="color: #98be65;">'expenditure_financing_by_function.csv'</span>] <span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">GEO, TIME</span>
 
-<span style="color: #5317ac;">for</span> f <span style="color: #5317ac;">in</span> third_list:
-    <span style="color: #00538b;">df_new</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/'</span>+f<span style="color: #145c33;">)</span>
-    <span style="color: #00538b;">df</span>=df.merge<span style="color: #145c33;">(</span>df_new,how=<span style="color: #2544bb;">'left'</span>,left_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>, right_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'year'</span>,<span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">second_list</span> = [<span style="color: #98be65;">'high_bmi.csv'</span>,<span style="color: #98be65;">'smoking.csv'</span>,<span style="color: #98be65;">'alcohol.csv'</span>] <span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">GEO, sex</span>
 
-<span style="color: #5317ac;">for</span> f <span style="color: #5317ac;">in</span> second_list:
-    <span style="color: #00538b;">df_new</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/'</span>+f<span style="color: #145c33;">)</span>
-    <span style="color: #00538b;">df</span>=df.merge<span style="color: #145c33;">(</span>df_new,how=<span style="color: #2544bb;">'left'</span>,left_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span>, right_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'sex'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">third_list</span> = [<span style="color: #98be65;">'years_lost.csv'</span>,<span style="color: #98be65;">'population_age.csv'</span>, <span style="color: #98be65;">'self_perceived_health.csv'</span>] <span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">GEO, TIME, sex</span>
 
-    
-<span style="color: #5317ac;">for</span> f <span style="color: #5317ac;">in</span> files_list:
-    <span style="color: #00538b;">df_new</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/'</span>+f<span style="color: #145c33;">)</span>
-    <span style="color: #00538b;">df</span>=df.merge<span style="color: #145c33;">(</span>df_new,how=<span style="color: #2544bb;">'left'</span>,left_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">]</span>, right_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span>,<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
-    
-<span style="color: #5317ac;">for</span> f <span style="color: #5317ac;">in</span> fourth_list:
-    <span style="color: #00538b;">df_new</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/'</span>+f<span style="color: #145c33;">)</span>
-    <span style="color: #00538b;">df</span>=df.merge<span style="color: #145c33;">(</span>df_new,how=<span style="color: #2544bb;">'left'</span>,left_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span>, right_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
 
-<span style="color: #00538b;">columns_to_drop</span> = <span style="color: #145c33;">[</span>s <span style="color: #5317ac;">for</span> s <span style="color: #5317ac;">in</span> df.columns <span style="color: #5317ac;">if</span> <span style="color: #2544bb;">'Unnamed'</span> <span style="color: #5317ac;">in</span> s<span style="color: #145c33;">]</span>
-df.drop<span style="color: #145c33;">(</span>columns_to_drop,axis=1,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
-df<span style="color: #145c33;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #145c33;">]</span>.replace<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'Germany (until 1990 former territory of the FRG)'</span>:<span style="color: #2544bb;">'Germany'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">fourth_list</span> = [<span style="color: #98be65;">'quantile_incomes.csv'</span>] <span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">GEO</span>
 
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/health_data.csv'</span><span style="color: #145c33;">)</span>
-df.head<span style="color: #145c33;">()</span>
+<span style="color: #51afef; font-style: italic;">for</span> f <span style="color: #51afef; font-style: italic;">in</span> third_list:
+    <span style="color: #dcaeea;">df_new</span> = pd.read_csv(<span style="color: #98be65;">'./data/'</span>+f)
+    <span style="color: #dcaeea;">df</span>=df.merge(df_new,how=<span style="color: #98be65;">'left'</span>,left_on=[<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>], right_on=[<span style="color: #98be65;">'year'</span>,<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>])
+
+<span style="color: #51afef; font-style: italic;">for</span> f <span style="color: #51afef; font-style: italic;">in</span> second_list:
+    <span style="color: #dcaeea;">df_new</span> = pd.read_csv(<span style="color: #98be65;">'./data/'</span>+f)
+    <span style="color: #dcaeea;">df</span>=df.merge(df_new,how=<span style="color: #98be65;">'left'</span>,left_on=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>], right_on=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'sex'</span>])
+
+
+<span style="color: #51afef; font-style: italic;">for</span> f <span style="color: #51afef; font-style: italic;">in</span> files_list:
+    <span style="color: #dcaeea;">df_new</span> = pd.read_csv(<span style="color: #98be65;">'./data/'</span>+f)
+    <span style="color: #dcaeea;">df</span>=df.merge(df_new,how=<span style="color: #98be65;">'left'</span>,left_on=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>], right_on=[<span style="color: #98be65;">'country'</span>,<span style="color: #98be65;">'year'</span>])
+
+<span style="color: #51afef; font-style: italic;">for</span> f <span style="color: #51afef; font-style: italic;">in</span> fourth_list:
+    <span style="color: #dcaeea;">df_new</span> = pd.read_csv(<span style="color: #98be65;">'./data/'</span>+f)
+    <span style="color: #dcaeea;">df</span>=df.merge(df_new,how=<span style="color: #98be65;">'left'</span>,left_on=[<span style="color: #98be65;">'country'</span>], right_on=[<span style="color: #98be65;">'country'</span>])
+
+<span style="color: #dcaeea;">columns_to_drop</span> = [s <span style="color: #51afef; font-style: italic;">for</span> s <span style="color: #51afef; font-style: italic;">in</span> df.columns <span style="color: #51afef; font-style: italic;">if</span> <span style="color: #98be65;">'Unnamed'</span> <span style="color: #51afef; font-style: italic;">in</span> s]
+df.drop(columns_to_drop,axis=<span style="color: #da8548; font-weight: bold;">1</span>,inplace=<span style="color: #a9a1e1;">True</span>)
+df[<span style="color: #98be65;">'country'</span>].replace({<span style="color: #98be65;">'Germany (until 1990 former territory of the FRG)'</span>:<span style="color: #98be65;">'Germany'</span>},inplace=<span style="color: #a9a1e1;">True</span>)
+
+df.to_csv(<span style="color: #98be65;">'./data/health_data.csv'</span>)
+df.head()
 </pre>
 </div>
 
-<pre class="example" id="org5b31527">
-   country  year_x sex  Preventable mortality  Treatable mortality  \
-0  Austria    2011   F                  95.29                67.41   
-1  Austria    2011   M                 248.50                96.86   
-2  Austria    2012   F                  96.16                69.72   
-3  Austria    2012   M                 252.28                91.45   
-4  Austria    2013   F                  93.22                66.84   
+<pre class="example" id="orge293c20">
+   country  year sex  Preventable mortality  Treatable mortality  \
+0  Austria  2011   F                  95.29                67.41
+1  Austria  2011   M                 248.50                96.86
+2  Austria  2012   F                  96.16                69.72
+3  Austria  2012   M                 252.28                91.45
+4  Austria  2013   F                  93.22                66.84
 
    potential years of life lost  median age  Bad Very Bad  Very Good Good  \
-0                        2381.0        43.2          10.4            66.8   
-1                        4608.0        40.9           8.4            70.8   
-2                        2326.0        43.5           9.6            68.5   
-3                        4390.0        41.2           8.4            71.7   
-4                        2245.0        43.8           9.8            66.7   
+0                        2381.0        43.2          10.4            66.8
+1                        4608.0        40.9           8.4            70.8
+2                        2326.0        43.5           9.6            68.5
+3                        4390.0        41.2           8.4            71.7
+4                        2245.0        43.8           9.8            66.7
 
-   high bmi  ...     HC4     HC5    HC6     HC7  year_y    y_QU1    y_QU2  \
-0     0.113  ...  115.73  632.45  75.80  143.13  2015.0  16497.2  27961.0   
-1     0.146  ...  115.73  632.45  75.80  143.13  2015.0  16497.2  27961.0   
-2     0.113  ...  121.00  648.89  76.02  152.48  2015.0  16497.2  27961.0   
-3     0.146  ...  121.00  648.89  76.02  152.48  2015.0  16497.2  27961.0   
-4     0.113  ...  123.03  657.19  80.64  159.31  2015.0  16497.2  27961.0   
+   high bmi  ...     HC3     HC4     HC5    HC6     HC7    y_QU1    y_QU2  \
+0     0.113  ...  542.67  115.73  632.45  75.80  143.13  16497.2  27961.0
+1     0.146  ...  542.67  115.73  632.45  75.80  143.13  16497.2  27961.0
+2     0.113  ...  564.93  121.00  648.89  76.02  152.48  16497.2  27961.0
+3     0.146  ...  564.93  121.00  648.89  76.02  152.48  16497.2  27961.0
+4     0.113  ...  587.97  123.03  657.19  80.64  159.31  16497.2  27961.0
 
-     y_QU3    y_QU4    y_QU5  
-0  36682.2  48215.5  74495.5  
-1  36682.2  48215.5  74495.5  
-2  36682.2  48215.5  74495.5  
-3  36682.2  48215.5  74495.5  
-4  36682.2  48215.5  74495.5  
+     y_QU3    y_QU4    y_QU5
+0  36682.2  48215.5  74495.5
+1  36682.2  48215.5  74495.5
+2  36682.2  48215.5  74495.5
+3  36682.2  48215.5  74495.5
+4  36682.2  48215.5  74495.5
 
-[5 rows x 29 columns]
+[5 rows x 28 columns]
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-orgfbea302" class="outline-3">
-<h3 id="orgfbea302"><span class="section-number-3">5.2</span> merging with systems data</h3>
+<div id="outline-container-org1af571e" class="outline-3">
+<h3 id="org1af571e"><span class="section-number-3">5.2.</span> merging with systems data</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Here we merge the health and economic data created above with the health system data from the OECD.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-jupyter-python"><span style="color: #5317ac;">import</span> pandas <span style="color: #5317ac;">as</span> pd
+<pre class="src src-jupyter-python"><span style="color: #51afef; font-style: italic;">import</span> pandas <span style="color: #51afef; font-style: italic;">as</span> pd
 
-<span style="color: #00538b;">df_systems_data</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/oecd_systems.csv'</span><span style="color: #145c33;">)</span>
-<span style="color: #00538b;">df_health_data</span> = pd.read_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/health_data.csv'</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df_systems_data</span> = pd.read_csv(<span style="color: #98be65;">'./data/oecd_systems.csv'</span>)
+<span style="color: #dcaeea;">df_health_data</span> = pd.read_csv(<span style="color: #98be65;">'./data/health_data.csv'</span>)
 
-<span style="color: #00538b;">df</span> = df_health_data.merge<span style="color: #145c33;">(</span>df_systems_data,how=<span style="color: #2544bb;">'inner'</span>,left_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span>, right_on=<span style="color: #5317ac;">[</span><span style="color: #2544bb;">'country'</span><span style="color: #5317ac;">]</span><span style="color: #145c33;">)</span>
+<span style="color: #dcaeea;">df</span> = df_health_data.merge(df_systems_data,how=<span style="color: #98be65;">'inner'</span>,left_on=[<span style="color: #98be65;">'country'</span>], right_on=[<span style="color: #98be65;">'country'</span>])
 
-df.drop<span style="color: #145c33;">(</span><span style="color: #5317ac;">[</span><span style="color: #2544bb;">"Unnamed: 0_x"</span>,<span style="color: #2544bb;">"Unnamed: 0_y"</span><span style="color: #5317ac;">]</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-df.rename<span style="color: #145c33;">(</span><span style="color: #5317ac;">{</span><span style="color: #2544bb;">'year_x'</span>:<span style="color: #2544bb;">'year'</span><span style="color: #5317ac;">}</span>,inplace=<span style="color: #0000c0;">True</span>,axis=1<span style="color: #145c33;">)</span>
-<span style="color: #505050;"># </span><span style="color: #505050;">columns_to_drop = [s for s in df.columns if 'TIME' in s]</span>
-<span style="color: #505050;"># </span><span style="color: #505050;">df.drop(columns_to_drop,axis=1,inplace=True)</span>
+df.drop([<span style="color: #98be65;">"Unnamed: 0_x"</span>,<span style="color: #98be65;">"Unnamed: 0_y"</span>],inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+df.rename({<span style="color: #98be65;">'year_x'</span>:<span style="color: #98be65;">'year'</span>},inplace=<span style="color: #a9a1e1;">True</span>,axis=<span style="color: #da8548; font-weight: bold;">1</span>)
+<span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">columns_to_drop = [s for s in df.columns if 'TIME' in s]</span>
+<span style="color: #5B6268; font-style: italic;"># </span><span style="color: #5B6268; font-style: italic;">df.drop(columns_to_drop,axis=1,inplace=True)</span>
 
-df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./data/health_and_systems_data.csv'</span><span style="color: #145c33;">)</span>
-<span style="color: #8f0075;">len</span><span style="color: #145c33;">(</span>df<span style="color: #145c33;">)</span>
+df.to_csv(<span style="color: #98be65;">'./data/health_and_systems_data.csv'</span>)
+<span style="color: #c678dd;">len</span>(df)
 </pre>
 </div>
 
@@ -1233,6 +1290,27 @@ df.to_csv<span style="color: #145c33;">(</span><span style="color: #2544bb;">'./
 <pre class="example">
 336
 </pre>
+
+
+
+<div id="bibliography">
+<h2>References</h2>
+
+<table>
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="OECD_avoidable_hospitalizations">OECD(2019)</a>]
+</td>
+<td class="bibtexitem">
+OECD.
+ <em>Avoidable hospital admissions</em>.
+ 2019.
+
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>

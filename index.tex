@@ -68,7 +68,7 @@ We introduce a theoretical framework to analyze the effects on health system per
 \newpage
 
 \section{Introduction}
-\label{sec:org011eb44}
+\label{sec:org1ba221c}
 
 COVID-19 has shown that the damage caused by a health crisis is strongly affected by the performance of a country's healthcare system \citep{OECD_2020}. This paper compares the performance of a number of health system features related to competition, efficiency and quality using data on European countries from before COVID-19. Based on their prominence in \cite{countryprofileReport}, its accompanying country reports and \cite{OECD_2020}, we analyze the effects of policy choices like single payer vs. competing health insurers, care delivery via private or public providers, introducing a dedicated healthcare regulator, allowing patients to choose their own provider, the prominence of primary care in the health system and the employment of nurses vs. doctors. We introduce a theoretical model to capture the effects of these policy choices on health system performance. Then we verify whether these theoretical predictions are consistent with the correlations found in the macro data for European countries.
 
@@ -130,7 +130,7 @@ The next section provides the theoretical background for our analysis of healthc
 
 
 \section{Theory}
-\label{sec:org8e722dc}
+\label{sec:org06119ed}
 \label{sec:theory}
 
 The goal of this paper is to shed light on some major factors that (are supposed to) improve the functioning of a healthcare system. The choice of these variables is based on our interpretation of the literature and country reports. In addition, we need to be able to identify the variables in the data.
@@ -146,12 +146,12 @@ We control for income per head since people with higher incomes tend to live hea
 The policy variables that we are directly interested in are the efficiency of the system as measured by the relative number of nurses vs. doctors, the quality of primary care services and cost effectiveness analysis when deciding on insurance coverage of new treatments. Policy choices that directly affect quality include the presence of a healthcare regulator and whether provider quality reports are made public. Variables that affect the extent to which healthcare works as a market: whether patients have (some) choice of providers, whether primary, inpatient and outpatient care are publicly or privately organized and whether a country has a single payer system or a number of (competing) insurers.
 
 \subsection{Healthcare system model}
-\label{sec:orgc682e20}
+\label{sec:orga80258f}
 
 In this section we propose a model that helps us think about these variables, their underlying relationships and effects on the success of the overall system. One benefit of conditioning our analysis on healthcare expenditure is that we will ignore a number of issues related to the health insurance market. Demand side cost sharing, moral hazard and adverse selection are important dimensions of a healthcare system. However, they affect health via access to insurance and hence healthcare expenditure. By conditioning on expenditure we ``close'' this causal path \citep{Causality2009} and do not need other health insurance variables.
 
 \subsubsection{income (inequality)}
-\label{sec:org41f0f6b}
+\label{sec:orgd08784d}
 
 As mentioned, a major determinant of health is income, here measured as GDP per head. We do not expect an additional euro per head to reduce mortality; more that the order of magnitude has an effect. Hence, we start by considering the relation between mortality and GDP per head on a log-log scale as shown in Figure \ref{fig:GDP_mortality}. We have separate mortality data for men and women and the figure shows the well known fact that women tend to have lower mortality than men. Further, this difference seems to be bigger the lower GDP per head is. As a side note: it is hard to find a color scheme that can clearly distinguish all countries by color. Clicking on the caption of this figure (and other figures below with country data points) takes you to the interactive graph online where hovering over a point shows the country as tooltip.
 
@@ -181,7 +181,7 @@ Based on this observation, we measure inequality in our data set as:
 where the fraction of people in income category \(i\) denoted \(\phi_i = 0.2\) as we have data on income quintiles. The higher this expression, the more unequal the income distribution in a country is.
 
 \subsubsection{health}
-\label{sec:orge4558e3}
+\label{sec:org25c082a}
 
 The way we model people's health and mortality is as follows. People can be in either of two states: healthy (\(H\), fraction \(h\) of population) or low health status (\(L\), fraction \(l=1-h\)). The rate at which people flow from the \(H\) to the \(L\) state is denoted by \(\zeta\). This rate \(\zeta\) increases with lifestyle factors such as poverty (low average income and high income inequality), tobacco, alcohol consumption and high BMI. We think of people in the \(L\) state as being treated by the healtcare system.
 
@@ -268,7 +268,7 @@ In words, \(\zeta\) is decreasing and convex in \(Y\). By Jensen's inequality, t
 
 
 \subsubsection{competition}
-\label{sec:org887f4ce}
+\label{sec:org57edb98}
 
 To see how the probability of being cured, \(\tau\), varies with healthcare expenditure, the use of nurses, primary care etc., we model hospital competition in the following way. Consider two hospitals --denoted 1,2. To simplify the exposition, we assume that the hospitals are symmetric, meaning: (i) if they offer the same quality, patients are distributed 50:50 among the hospitals and (ii) if patients are not free to choose hospitals, they are also distributed 50:50. Think of two hospitals in two regions with similar population characteristics in the two regions. If there is no choice, patients can only visit the hospital in the region where they live and the assumption is that the expected number of patients and their ailments is the same across regions. We denote the probability that patients are aware of quality differences between hospitals and can act upon this knowledge by \(\theta \in [0,1]\). We denote the probability of treatment success (i.e. cure and move back to state \(H\)) for hospital \(i\)  by \(\tau_i\). Then provider 1's market share is given by
 \begin{equation}
@@ -294,7 +294,7 @@ for \(i=n,pc\) assuming that \(R \geq c_s>c_n,c_{pc}\): the fee-for-service cove
 In words, having more nurses and primary care practitioners --for given \(H\) expenditure-- saves money that can be spent on other health improving activities. To keep the model parsimonious, the other activity is the fee-for-service \(R\) for hospital care. As more care is transferred from the specialist to nurses and primary care, the specialists do fewer treatments but can be paid more for these. This gives an incentive to raise quality, as we show below.
 
 \subsubsection{treatment quality}
-\label{sec:org6b78c6c}
+\label{sec:org9d213cb}
 
 We write the objective function of hospital \(j \neq k\) as
 \begin{equation}
@@ -319,7 +319,7 @@ By increasing the fee-for-service  it becomes more attractive for a provider to 
 
 
 \subsubsection{expenditure}
-\label{sec:org9d9f068}
+\label{sec:orgc787a0e}
 
 Increasing the healthcare budget increases the probability of being cured:
 \begin{equation}
@@ -329,7 +329,7 @@ Increasing the healthcare budget increases the probability of being cured:
 where \(dR/dH > 0\) follows from differentiating \eqref{eq:9}. By making more money available for healthcare, people are more likely to be cured and flow back to the high health state. With a higher budget it becomes more profitable for hospitals to treat patients and hence they invest more in quality to attract patients to their hospitals (and not a competing provider).
 
 \subsubsection{provider choice}
-\label{sec:org2cd93c0}
+\label{sec:org660d351}
 
 Allowing and further facilitating patients to choose their own provider, makes it more likely that a patient chooses the best provider instead of the closest one. This increases provider competition (\(\theta\)) and thus increases the probability that a patient is cured:
 \begin{equation}
@@ -356,7 +356,7 @@ Since the second derivative of \(\tau\) with respect to \(\theta\) is negative, 
 \cite{dranoveReportCards2003} provides another rationale why the positive effects of making quality reports public are limited when there is provider choice: risk selection by providers. Physicians try to avoid treating high risk patients as it could negatively affect their (public) score card. This gaming of the system can also result in lower performance outcomes for a country as a whole as high risk patients are transferred from one hospital to the next.
 
 \subsubsection{effect of income on treatment quality}
-\label{sec:orga63c11b}
+\label{sec:org91ec993}
 
 We derive the effect of income \(Y\) on the quality of treatment \(\tau\) from equation \eqref{eq:13}: 
 \begin{equation}
@@ -379,7 +379,7 @@ We find that
 The significance of this result is the following. If a provider faces a population of agents with differing incomes, we need to integrate over this population to determine the aggregate incentive for hospitals to invest in quality. If quality \(\tau_j\) is concave in income this implies that quality is higher --for given average income-- if the variance in income is lower (Jensen's inequality for a concave function). This gives a micro foundation for the observation in equation \eqref{eq:3} that mortality increases with income inequality.
 
 \subsubsection{regulator}
-\label{sec:orgd74c1f7}
+\label{sec:org3edfc11}
 
 Another way to stimulate quality investments is to introduce a healthcare regulator which sets and enforces minimum quality standards \(\underline \tau\). The idea is that a dedicated healthcare regulator makes more work of treatment quality than a competition authority (general regulator) or the ministry of health would. We just assume that a healthcare regulator is more effective in imposing minimum standards without presenting a contract theory framework to derive this.
 
@@ -391,7 +391,7 @@ If these standards are binding, imposing them leads to a direct increase in trea
 evaluated at the symmetric equilibrium \(\tau_j=\tau_k, k \neq j\). Hence, if new standards push up \(\tau_k\), these will tend to increase \(\tau_j\) which further increases \(\tau_k\) etc. Hence, there can be a multiplier effect leading to a higher equilibrium quality increase than the initial increase in the standard.
 
 \subsubsection{nurses and primary care}
-\label{sec:org3777975}
+\label{sec:org35eea6f}
 
 As stated by \cite{OECD_2020}: ``Strengthening primary care has been identified as an effective policy tool to improve care coordination and health outcomes and reduce wasteful spending\ldots{} However, in many EU and OECD countries, primary care has not yet fully realised this potential''. Similarly, in the same report: ``advanced practice nurses can improve access to services and reduce waiting times, while delivering the same quality of care as doctors for a range of patients''. Hence, both primary care and the employment of nurses instead of doctors have the potential to save money which can --for given expenditure-- be used to improve healthcare and reduce mortality.
 
@@ -411,7 +411,7 @@ Increasing the use of primary care and nurses, increases the probability that a 
 because of equations \eqref{eq:11} and \eqref{eq:20}. Using healthcare resources more efficiently, creates a bigger remaining budget for healthcare (the analysis is conditional on expenditure) and hence the same mechanisms play a role as in equation \eqref{eq:16}. More money available leads to less rationing and more investments in quality. In a similar vein, cost-effectiveness analysis also helps to save resources and hence increases the remaining budget that can be spent on improving care. In this way, we expect that cost effectiveness analysis increases the probability that a patient is cured and thus reduces mortality.
 
 \subsubsection{single payer vs. competing insurers}
-\label{sec:org68e9921}
+\label{sec:orgdd2dd44}
 
 Another important policy choice is whether there is a single payer in a country or competing insurers. There are a number of pros and cons of a single payer compared to a system with competing insurers; see, for instance, \cite{OberlanderSinglePayer} and \cite{BICHAY2020113454} and references therein. It is beyond the scope of this paper to review/model each of these. We introduce a simple model capturing the interactions between the insurer and provider to illustrate the trade offs.
 
@@ -466,7 +466,7 @@ However, there can also be disadvantages of a single payer. The reason that a nu
 Summarizing, the model suggests that there are three effects why a single payer system can outperform a system with competing insurers. On the other hand, the disciplining effect of competition on efficiency and customer focus can lead to better outcomes with multiple insurers. In this sense, in general there is no reason to expect that in the data one system will obviously outperform the other.
 
 \subsubsection{public vs private providers}
-\label{sec:orgc32448d}
+\label{sec:org7ebd7d6}
 
 Now we add to the analysis of single payer vs multiple insurers the interaction with providers that are either private or public. It is not straightforward to characterize the objective functions of public and private providers. We follow recent literature --see for instance \cite{Brekke2018}-- and assume that private providers are pure profit maximizers and public providers give some weight (\(\alpha > 0\)) to the welfare of patients.\footnote{To ease notation we use \(\nu(\tau)\) for patient utility here; but another function can be used as well as long as it is increasing in \(\tau\).} This parametrization is simple and helps to illustrate the effect we are interested in.
 
@@ -509,7 +509,7 @@ We summarize the discussion above as follows.
 \end{itemize}
 
 \subsection{Causality}
-\label{sec:org70a3e26}
+\label{sec:orgef6a92e}
 
 The main point of the paper is to see whether the theoretical effects on the performance of healthcare systems described above are in line with the data that we have on system performance across countries. Hence, we check whether the correlations implied by the model are strong enough to be detected in the macro data. We do not try to find instruments for each policy measure to prove causality, we just verify whether the predictions of the model are borne out by the data.
 
@@ -521,7 +521,7 @@ Determining with some precision the size of the causal effect of a variable on h
 
 
 \section{Data}
-\label{sec:org656e658}
+\label{sec:org18dc4b9}
 
 The objective of the analysis is to compare the functioning of healthcare systems between different countries with different institutional features. Finding data measured in a consistent way across countries is not obvious but recently Eurostat (\url{https://ec.europa.eu/eurostat/data/database}) and the OECD (\url{https://qdd.oecd.org/subject.aspx?Subject=hsc}) have made progress in this direction. Combining both sources, we have data on health statistics (like mortality, smoking behavior, expenditure etc.) and on healthcare systems (does a country have free hospital choice, a healthcare regulator, make provider quality reports publicly available etc.) that are collected in a consistent way and thus comparable across countries. We use this data to analyze the performance of healthcare systems for the 24 European countries in Table \ref{tab:groupby_countries}.
 
@@ -570,7 +570,7 @@ Finally, we consider a number of mortality measures and results are robust to th
 \caption{\label{fig:age_mortality}\href{https://janboone.github.io/European-Healthcare-Systems/figures/age\_mortality.html}{The relation between median age in the population and treatable mortality.}}
 \end{figure}
 
-Appendix \ref{sec:org6f1b0e6} provides details on the mortality measures. Here we provide the definitions and illustrate these with examples. In the main text we work with treatable mortality, for two robustness analyses we work with preventable mortality and Potential Years of Life Lost (PYLL). An advantage of PYLL is that we can evaluate the benefit of certain policies by choosing a value for a life year. This is not obvious to do with a mortality measure as we cannot differentiate between death avoided at age 20 and at age 60.
+Appendix \ref{sec:orge89fbc9} provides details on the mortality measures. Here we provide the definitions and illustrate these with examples. In the main text we work with treatable mortality, for two robustness analyses we work with preventable mortality and Potential Years of Life Lost (PYLL). An advantage of PYLL is that we can evaluate the benefit of certain policies by choosing a value for a life year. This is not obvious to do with a mortality measure as we cannot differentiate between death avoided at age 20 and at age 60.
 
 Treatable mortality refers to causes of death that can be mainly avoided through timely and effective health care interventions, including secondary prevention such as screening, and treatment after the onset of disease. Preventable mortality is defined as causes of death that can be mainly avoided through effective public health and primary prevention interventions before the onset of diseases/injuries \citep{countryprofileUK}. To illustrate, breast cancer is labeled as treatable but not preventable, lung and bladder cancer are preventable (reduce smoking) but not treatable and hypertensive diseases are both preventable (reduce smoking, improve nutrition and physical activity) and treatable. Death rates are expressed per 100,000 inhabitants using a weighted average of age-specific mortality rates, where the weights are based on the age distribution of a standard reference population.
 
@@ -581,7 +581,7 @@ We choose treatable mortality as our variable to be explained in the main text b
 
 
 \subsection{Missing values}
-\label{sec:org433f5b2}
+\label{sec:org0330d89}
 
 Table \ref{tab:groupby_countries} presents country averages for four variables for the countries in our data ordered on treatable mortality. Switzerland has lowest (treatable) mortality in our European sample and Latvia the highest. This can be due to the fact that the Swiss have organized their healthcare particularly well, but an important explanation is that the Swiss have high healthcare spending per capita. The HC1 column (curative care expenditure per head) shows that this is indeed the case for this healthcare spending category. Also  avoidable hospitalizations and the nurses/doctor ratio are presented.
 
@@ -593,11 +593,11 @@ We use the following method to deal with missing values as suggested by \cite{mc
 
 The uncertainty surrounding the value of a missing observation is taken into account in the posterior distributions of our parameters. When sampling the posterior, if we encounter a missing value in a variable, this value is drawn from its distribution. We work with 2000 samples for the posterior and hence we draw 2000 different values for each missing observation. In this way, the uncertainty about the value translates into posterior uncertainty of the parameters and predictions.
 
-Not all of our variables vary with sex, country and year. To illustrate, GDP per head does not vary with sex in our data and our health system data does not vary by sex nor by year. Section \ref{sec:org54837d2} shows for each of our variables over which dimensions they vary. For our countries the OECD has only one observation about their health system. For all countries but one this OECD data is for 2016. Only for Hungary do we have system data for 2012. We use \cite{countryprofileReport} and the accompanying country reports to verify that there have been no further reforms in our data period.
+Not all of our variables vary with sex, country and year. To illustrate, GDP per head does not vary with sex in our data and our health system data does not vary by sex nor by year. Section \ref{sec:orge331913} shows for each of our variables over which dimensions they vary. For our countries the OECD has only one observation about their health system. For all countries but one this OECD data is for 2016. Only for Hungary do we have system data for 2012. We use \cite{countryprofileReport} and the accompanying country reports to verify that there have been no further reforms in our data period.
 
 
 \subsection{Variables}
-\label{sec:org5139003}
+\label{sec:org7e24eca}
 
 Here we discuss each of the variables used in our analysis. We have data for the years 2011-2017, 24 countries and two genders. Except for France where we miss mortality (for both genders) for the year 2017. Hence, we have \(7*2*24-2=334\) rows in our data frame where a row is indexed by year, country and gender. Table \ref{tab:summary_variables} summarizes the data for the continuous variables. The first three rows are the mortality variables discussed above.
 
@@ -706,7 +706,7 @@ In order to facilitate the interpretation of the coefficients on the spending ca
 \label{eq:18}
  &= ... + \left(\sum_{i=1}^7 b_{hc_i} \right) \ln(HC) +  \sum_{i=1}^7 b_{hc_i} \ln(HCi/HC) 
 \end{align}
-where \(HC =  \sum_{i=1}^7 HCi\) denotes total healthcare expenditure across all categories. Hence, the sum of the coefficients \(b_{hc_i}\) captures the effect of increasing total expenditure for given fractions \(HC_i/HC\) and individual coefficients \(b_{hc_i}\) capture the effect of changing the allocation of expenditure \(HC\) over the different categories \(i\). In the tables below, we will also report on the posterior distribution of \(b_{hc}= \sum_{i=1}^7 b_{hc_i}\), although this is not a separately estimated coefficient.\footnote{Appendix \ref{sec:orga63aa45} explains how the standardization of our variables affects the coefficient \(b_{hc}\).}
+where \(HC =  \sum_{i=1}^7 HCi\) denotes total healthcare expenditure across all categories. Hence, the sum of the coefficients \(b_{hc_i}\) captures the effect of increasing total expenditure for given fractions \(HC_i/HC\) and individual coefficients \(b_{hc_i}\) capture the effect of changing the allocation of expenditure \(HC\) over the different categories \(i\). In the tables below, we will also report on the posterior distribution of \(b_{hc}= \sum_{i=1}^7 b_{hc_i}\), although this is not a separately estimated coefficient.\footnote{Appendix \ref{sec:org772d9cf} explains how the standardization of our variables affects the coefficient \(b_{hc}\).}
 
 Note that we work here with log expenditure per head. Another option would be to define healthcare expenditure as a fraction of GDP: \(HC/Y\) in our notation. Since log GDP per head is also in our regression, these two specifications are equivalent in our case since we can write \(\alpha \ln(HC/Y) + \beta \ln(Y) = \alpha \ln(HC) + (\beta-\alpha) \ln(Y)\). As we want to condition our results on these variables but are not specifically interested in their coefficients, for us the results are the same whether we work with health expenditure per head or fraction of GDP spent on health.
 
@@ -714,7 +714,7 @@ Note that we work here with log expenditure per head. Another option would be to
 
 
 \section{Model}
-\label{sec:org7db357a}
+\label{sec:org075186a}
 
 In this section we describe the model that we actually estimate on the data described above.  All continuous variables are standardized (mean subtracted and divided by the standard deviation). Just to be clear, when using logs, we first take the log and then we standardize.
 
@@ -740,12 +740,12 @@ As this is a Bayesian analysis, we set priors for our parameters. Since the size
 
 
 \section{Results}
-\label{sec:org9cd20ed}
+\label{sec:org26c0b2e}
 
 Here we present the main characteristics of the posterior distribution of our model. Before looking at the results, let's get an idea of the fit of the model.
 
 \subsection{model fit}
-\label{sec:org2825f8d}
+\label{sec:org4c406dd}
 
 Figure \ref{fig:fit_model} plots the data (points) as in Figure \ref{fig:GDP_mortality} (using the standardized variables we use in the model) together with the posterior predictive distribution. The line-segments present the 95\% interval of our predictions for each of our observations.
 
@@ -761,7 +761,7 @@ That is, each estimated parameter has a distribution (see below) and each point 
 
 
 \subsection{main specification}
-\label{sec:org2dca2d1}
+\label{sec:orgbae5da2}
 
 \begin{table}[htbp]
 \caption{\label{tab:posterior_main_mode}Summary posterior distributions of the model's parameters}
@@ -816,7 +816,7 @@ We consider two direct quality measures: having a healthcare regulator and makin
 Instead of provider choice requiring public quality reports to work, we find that these measures are substitutes. This is captured by equation \eqref{eq:21}: decreasing returns to information and competition \(\theta\). Adding provider information to a system with provider choice has little effect on overall performance.  This suggests that allowing provider choice generates its own information for competition to work. \citep{dranoveReportCards2003} suggest the alternative interpretation that with provider choice, quality transparency can lead to risk selection by hospitals to game the system. Hospitals try to ``dump'' risky patients to improve their quality reports. This reduces the efficacy of public quality reports. With our macro (cross country) approach, we cannot distinguish which of these mechanisms dominate.
 
 \subsection{extended model}
-\label{sec:org2a38518}
+\label{sec:orgeabfcd5}
 
 To get a better understanding where the effects of public/private primary, outpatient and inpatient care come from, we extend the main model with three interaction terms. Above we showed that this effect is subtle from a theory point of view. Hence, we consider this in an extension of the baseline model. We interact single payer status of a country with the variables capturing whether primary, outpatient and inpatient care are mainly provided through public entities. Note that a single payer system does not imply that all healthcare is provided publicly.
 
@@ -881,7 +881,7 @@ Finally, considering \eqref{eq:37public} and \eqref{eq:37SPpublic} together, wit
 
 
 \section{Policy implications}
-\label{sec:org96fc107}
+\label{sec:org961fe28}
 
 In terms of policy variables, we can summarize our results as follows. We are mainly interested in the health system variables related to efficiency, quality and competition. But let's briefly look at the variables we use as controls. Not surprisingly, spending more on healthcare tends to reduce treatable mortality. For some expenditure categories this effect is stronger than for others. However, this does not signal a policy implication to improve the healthcare system because some expenditure categories are more closely associated with mortality reduction --but not system performance in general-- than others. Higher income per head and lower income inequality are associated with lower mortality but are not generally seen as health policy instruments. Women tend to have lower mortality than men and this gender gap falls with GDP per head. In terms of explicit lifestyle variables, our estimates confirm the well known fact that lower fractions of people smoking, consuming alcohol and having high BMI tend to reduce mortality in the population.
 
@@ -902,9 +902,9 @@ Publishing provider quality reports on top of allowing provider choice appears n
 Finally, introducing a separate regulator focusing on quality in the healthcare sector also improves the performance of the healthcare system.
 
 \section{Robustness analysis}
-\label{sec:org8a0675c}
+\label{sec:org91d3aa0}
 
-In Appendix \ref{sec:org9bbdae6}, we do two robustness analyses with respect to the mortality variable that we use: preventable mortality and  life years lost, resp. The results are similar to what we find with the main specification above. Here we discuss the main differences.
+In Appendix \ref{sec:org5e4ecd8}, we do two robustness analyses with respect to the mortality variable that we use: preventable mortality and  life years lost, resp. The results are similar to what we find with the main specification above. Here we discuss the main differences.
 
 The coefficient on HC6 (preventive care) is clearly negative in the model for preventable mortality, but the posterior for the coefficient on curative expenditure has some mass on positive values as well. Preventable mortality is affected by a number of other factors --compared to treatable mortality which is more closely linked to health system performance-- that the effect of cost effectiveness analysis on mortality is no longer clearly negative. The same is true for the effects of a single payer.
 
@@ -912,7 +912,7 @@ Publishing provider quality reports now also reduces mortality in case of provid
 
 With life years lost as dependent variable we have the following differences with the results of the main model above. High BMI does no longer obviously increase life years lost. Single payer and healthcare regulator do not clearly reduce years lost here, as they do in the baseline specification. The average effect of allowing for hospital choice is bigger (in absolute value) than the effect of making provider reports public.
 
-An advantage of the life years lost measure is that it is relatively straightforward to put a value on the gains made by the different policy measures: multiply the value of a life year with life years gained (i.e. reduction in potential years of life lost). We illustrate this in Figure \ref{fig:values_qaly} where we increase total healthcare expenditure with \(\Delta HC\) euro and calculate whether life years gained multiplied by their value on the horizontal axis exceeds this amount \(\Delta HC\). Since, we have a posterior distribution for \texttt{b\_hc}, there is a probability that the value of life years gained exceeds \(\Delta HC\) euro. Appendix \ref{sec:orgbcc199f} explains the details of this figure.
+An advantage of the life years lost measure is that it is relatively straightforward to put a value on the gains made by the different policy measures: multiply the value of a life year with life years gained (i.e. reduction in potential years of life lost). We illustrate this in Figure \ref{fig:values_qaly} where we increase total healthcare expenditure with \(\Delta HC\) euro and calculate whether life years gained multiplied by their value on the horizontal axis exceeds this amount \(\Delta HC\). Since, we have a posterior distribution for \texttt{b\_hc}, there is a probability that the value of life years gained exceeds \(\Delta HC\) euro. Appendix \ref{sec:org8609a97} explains the details of this figure.
 
 If we value an additional life year at 50k euro, there is a 95\% probability that the value gained exceeds the increase in healthcare expenditure \(\Delta HC\) in Latvia. For higher values of a life year, this probability is basically 1.
 
@@ -933,7 +933,7 @@ In the online appendix, we also consider the variable self-perceived health as a
 
 
 \section{Discussion}
-\label{sec:org570b53b}
+\label{sec:orgda71042}
 
 Whereas many health papers nowadays work with individual level data, the starting point of this paper is: what can we learn from recently collected health data at the country level by Eurostat and the OECD? As the data is recent, there are missing values and not many observations. With Bayesian estimation we can avoid throwing away precious data and avoid imposing extrapolated data points. Although pinpointing causal mechanisms is hard with macro data, we do believe that a number of relevant insights emerge from this analysis.
 
@@ -951,12 +951,12 @@ A next step in this research is to examine whether the policy choices that we id
 
 
 \section{Appendix}
-\label{sec:org277a91c}
+\label{sec:org102a71c}
 
 This appendix provides proofs for some results above, a description of the variables that we use, more details on the posterior distributions of the parameters in our models and on the estimation with preventable mortality and potential years of life lost.
 
 \subsection{Proof of results}
-\label{sec:orga710153}
+\label{sec:org87445ce}
 
 \textbf{Proof of Lemma \ref{lem:VY}:}
 Differentiate equation \eqref{eq:26} --using the functional forms in the lemma-- with respect to \(Y\). Then it is routine to verify that \(d^2 \Delta V/dY^2 < 0\) if
@@ -993,16 +993,16 @@ Using the result from Lemma \ref{lem:VY} that --under some assumptions-- \(d^2\D
 
 
 \subsection{Data}
-\label{sec:org3d1fbb7}
+\label{sec:orgd5a839b}
 
 Here we give more background on the variables that we use, the dimensions of each variable and variables with missing values. Links to the data for each variable can be found here: \url{https://janboone.github.io/European-Healthcare-Systems/getting\_data.html}
 
 \subsubsection{Details on the variables}
-\label{sec:org6f1b0e6}
+\label{sec:orge89fbc9}
 
 \begin{enumerate}
 \item mortality
-\label{sec:org87289de}
+\label{sec:org3110a8e}
 \label{sec:mortality}
 
 \cite{OECD_avoidable_mortality} gives the following motivation for developing the treatable and preventable mortality measures: ``Assessing the performance of health systems is of increasing importance in OECD and EU countries. While avoidable mortality indicators are not meant to be a definite measure of health system performance, they provide a starting point to assess the performance of public health and health care policies in avoiding premature mortality from preventable and treatable causes of death.'' This is the way in which we employ these measures in this paper, as a starting point to assess the performance of healthcare policies. 
@@ -1032,7 +1032,7 @@ We finish this discussion with some examples and their motivation from the OECD 
 As a robustness analysis we use potential years of life lost (PYLL) as mortality variable. According to \url{https://ec.europa.eu/eurostat/cache/metadata/en/hlth\_cdeath\_esms.htm}, ``PYLL is an indicator estimating the potential years lost due to premature death, i.e. death before 70. It is calculated by summing the number of years between the age at death and 70 years for each premature death. PYLL rate is expressed per 100 000 age-standardised population under 70.'' That is, in contrast to treatable and preventable mortality here an age cut-off of 70 years is used.
 
 \item expenditure
-\label{sec:orgfc458dd}
+\label{sec:org784c642}
 
 We use healthcare expenditures in euros per capita. As described on this page: \url{https://ec.europa.eu/eurostat/cache/metadata/en/hlth\_sha11\_esms.htm\#stat\_pres1612341832096}: Healthcare functions relate to the type of need that current expenditure on healthcare aims to satisfy or the kind of objective pursued. We use the following items:
 
@@ -1048,7 +1048,7 @@ We use healthcare expenditures in euros per capita. As described on this page: \
 \end{itemize}
 
 \item lifestyle
-\label{sec:orgb6d8a95}
+\label{sec:org77884f5}
 
 Under lifestyle we categorize the female dummy as in most countries women tend to be/live healthier than men. We also include income variables since we know that higher income is associated with better health, \texttt{Log GDP per capita}. Based on GDP per head for 5 quintiles, we calculate \texttt{inequality} based on equation \eqref{eq:19}.
 
@@ -1060,7 +1060,7 @@ Lifestyle variables:
 \end{itemize}
 
 \item efficiency
-\label{sec:orgf02505e}
+\label{sec:orgea3fad3}
 
 \begin{itemize}
 \item \texttt{nurses/doctors ratio} is based on number of practicing medical doctors per 100k and number of practicing nurses and midwives per 100k population;
@@ -1069,7 +1069,7 @@ Lifestyle variables:
 \end{itemize}
 
 \item market
-\label{sec:org708787f}
+\label{sec:org4101cc8}
 
 The following variables are all taken from the \href{https://qdd.oecd.org/data/HSC}{OECD Health Systems Characteristics Survey}:
 \begin{itemize}
@@ -1082,7 +1082,7 @@ The following variables are all taken from the \href{https://qdd.oecd.org/data/H
 
 
 \item quality
-\label{sec:org80c4d21}
+\label{sec:org3e76590}
 
 \begin{itemize}
 \item \texttt{healthcare regulator}: equals 1 if answer to ``Is there an organisation with responsibility for national policy on health care quality in your country? (Q66)'' is ``Yes'';
@@ -1093,7 +1093,7 @@ The following variables are all taken from the \href{https://qdd.oecd.org/data/H
 
 
 \subsubsection{Data dimensions}
-\label{sec:org54837d2}
+\label{sec:orge331913}
 \label{sec:data_dimensions}
 
 Table \ref{tab:data_dimensions} shows for each variable that we use the dimensions over which it varies. To illustrate, GDP per capita varies over countries and time but not gender. The income quintiles that we use for the inequality variable, we have for one year only. The lifestyle variable related to smoking varies with country and gender but we have it for one year only. All health system data from OECD is for one year only, except the avoidable hospitalizations variable which we have for the years 2012-2017.
@@ -1154,7 +1154,7 @@ high bmi & 14\\
 \end{table}
 
 \subsection{posterior plots}
-\label{sec:orga63aa45}
+\label{sec:org772d9cf}
 
 This section presents the posterior plots for the parameters of the baseline model. As explained in \cite{mcelreath}, the Markov Chain Monte Carlo algorithm that we use is guaranteed to converge in the long run to the posterior distribution; but it is not known how many samples suffice for this convergence. A trace plot helps to judge whether we have enough samples to trust the posterior distributions. The plot shows each sample drawn from the posterior connected by a line (figure on the right) and the posterior distributions for the four chains that we use (figure on the left).
 
@@ -1162,7 +1162,7 @@ We have more faith in our sampling process if the trace plot (right figure) sati
 
 
 \subsubsection{expenditure}
-\label{sec:org370825a}
+\label{sec:orgdef4a01}
 \label{app:expenditure}
 
 Figure \ref{fig:trace_expenditure} shows the trace plots for the coefficients of the expenditure variables \texttt{b\_hc1} to \texttt{b\_hc7}. The coefficient on total expenditure \texttt{b\_hc} is not itself estimated but derived from the estimated coefficients as shown in equation \eqref{eq:18}. As the variables in our analysis are standardized, \texttt{b\_hc} actually equals the sum of \texttt{b\_hci} where each coefficient is divided by the standard deviation of \(\ln(HC_i)\) for \(i=1,2,...,7\).
@@ -1175,7 +1175,7 @@ Figure \ref{fig:trace_expenditure} shows the trace plots for the coefficients of
 
 
 \subsubsection{health}
-\label{sec:org377c0db}
+\label{sec:orgfe1e937}
 
 Figure \ref{fig:trace_health} shows the trace plots for the variables related to health/lifestyle.
 
@@ -1187,7 +1187,7 @@ Figure \ref{fig:trace_health} shows the trace plots for the variables related to
 
 
 \subsubsection{efficiency}
-\label{sec:org29ad4a6}
+\label{sec:orgdb060e2}
 
 The traces for the variables related to efficiency are summarized in Figure \ref{fig:trace_efficiency}.
 
@@ -1198,7 +1198,7 @@ The traces for the variables related to efficiency are summarized in Figure \ref
 \end{figure}
 
 \subsubsection{market}
-\label{sec:org7570a0d}
+\label{sec:orgf008672}
 
 The trace plots for the variables related to the market are presented in Figure \ref{fig:trace_market}.
 
@@ -1210,7 +1210,7 @@ The trace plots for the variables related to the market are presented in Figure 
 
 
 \subsubsection{quality}
-\label{sec:org04024f6}
+\label{sec:org7e2c1ac}
 
 The trace plots for the healthcare regulator and yearly publishing of provider quality reports are presented in Figure \ref{fig:trace_quality}.
 
@@ -1220,7 +1220,7 @@ The trace plots for the healthcare regulator and yearly publishing of provider q
 \caption{\label{fig:trace_quality}Trace plot for parameters related to quality}
 \end{figure}
 \subsubsection{interaction effects}
-\label{sec:org5d72e35}
+\label{sec:orga3c1071}
 
 Figure \ref{fig:trace_interaction} gives the trace plot for the coefficient on the interaction between publishing quality reports in case there is no free provider choice.
 
@@ -1233,7 +1233,7 @@ Figure \ref{fig:trace_interaction} gives the trace plot for the coefficient on t
 
 
 \subsection{Robustness checks}
-\label{sec:org9bbdae6}
+\label{sec:org5e4ecd8}
 \label{app:robustness}
 
 Here we look at two robustness checks for the dependent variable that we use in this paper. Hence, we run the model in the main text for preventable mortality and potential years of life lost instead of treatable mortality. The results are similar to the ones found above.
@@ -1241,7 +1241,7 @@ Here we look at two robustness checks for the dependent variable that we use in 
 In the on-line appendix we also consider self-perceived health as dependent variable. This is affected by a lot of other variables not directly related to health system performance. Hence, the estimated effects are more noisy than for the avoidable mortality measures that we use. However, a number  of the effects that we found above are robust to using this measure as dependent variable.
 
 \subsubsection{preventable mortality}
-\label{sec:org3e81d2b}
+\label{sec:orgb677a8e}
 
 In this section we run the model with preventable mortality (instead of treatable mortality) as a robustness check. The posterior of the coefficients are similar to the what we find in the main text. Table \ref{tab:posterior_prevetable} summarizes the posterior for the coefficients of the model.
 
@@ -1285,7 +1285,7 @@ b\_reports\_no\_choice & -0.218 & 0.089 & -0.392 & -0.056 & 1674 & 1\\
 
 
 \subsubsection{Potential Years of Life Lost (PYLL)}
-\label{sec:orgbcc199f}
+\label{sec:org8609a97}
 \label{sec:PYLL}
 
 Table \ref{tab:posterior_years_lost} summarizes the posterior distribution of the parameters with potential years of life lost (PYLL) as dependent variable. The results are comparable to the model in the main text. The exceptions are that a high BMI no longer clearly increases life years lost and a healthcare regulator does no longer reduce life years lost with high probability. In other words, there is some posterior probability that a high BMI reduces PYLL while having a healthcare regulator increases PYLL.
@@ -1334,7 +1334,7 @@ We need the following steps to derive Figure \ref{fig:values_qaly}. We estimate 
 \label{eq:27}
 \frac{\ln(L)-E(\ln(L))}{SD(\ln(L))} = b_{hc} \ln(HC) + ...
 \end{equation}
-where the operators \(E(.),SD(.)\) denote the mean and standard deviation resp. As explained in Section \ref{sec:orga63aa45}, \(b_{hc}\) is already corrected for the standard deviations of the \(hc_i\) terms. Taking derivatives we find
+where the operators \(E(.),SD(.)\) denote the mean and standard deviation resp. As explained in Section \ref{sec:org772d9cf}, \(b_{hc}\) is already corrected for the standard deviations of the \(hc_i\) terms. Taking derivatives we find
 \begin{equation}
 \label{eq:31}
 \frac{d \ln(L)}{d \ln(HC)} = b_{hc} SD(\ln(L))

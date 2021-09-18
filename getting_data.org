@@ -4,69 +4,23 @@
 #+SETUPFILE: ./org-html-themes/org/theme-readtheorg.setup
 #+PROPERTY: header-args  :session getting_data :kernel python3 :async yes
 
-#+BEGIN_PREFACE
+
 #+LANGUAGE: en
 #+INFOJS_OPT: view:showall toc:t ltoc:t mouse:underline path:http://orgmode.org/org-info.js
-#+LaTeX_CLASS: article-nodefaults
-#+LaTeX_HEADER: \documentclass[12pt,english,a4paper]{article}
-#+LaTeX_HEADER: \usepackage[utf8]{inputenc}
-#+LaTeX_HEADER: \usepackage{sectsty}
-#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}
-#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}
-#+latex_header: \usepackage[round,authoryear]{natbib}
-#+latex_header: \usepackage{amsmath}
-#+latex_header: \newtheorem{theorem}{Theorem}
-#+latex_header: \newtheorem{assumption}{Assumption}
-#+latex_header: \newtheorem{acknowledgement}{Acknowledgement}
-#+latex_header: \newtheorem{algorithm}{Algorithm}
-#+latex_header: \newtheorem{axiom}{Axiom}
-#+latex_header: \newtheorem{case}{Case}
-#+latex_header: \newtheorem{claim}{Claim}
-#+latex_header: \newtheorem{conclusion}{Conclusion}
-#+latex_header: \newtheorem{condition}{Condition}
-#+latex_header: \newtheorem{conjecture}{Conjecture}
-#+latex_header: \newtheorem{corollary}{Corollary}
-#+latex_header: \newtheorem{criterion}{Criterion}
-#+latex_header: \newtheorem{definition}{Definition}
-#+latex_header: \newtheorem{example}{Example}
-#+latex_header: \newtheorem{exercise}{Exercise}
-#+latex_header: \newtheorem{lemma}{Lemma}
-#+latex_header: \newtheorem{notation}{Notation}
-#+latex_header: \newtheorem{observation}{Observation}
-#+latex_header: \newtheorem{problem}{Problem}
-#+latex_header: \newtheorem{proposition}{Proposition}
-#+latex_header: \newtheorem{remark}{Remark}
-#+latex_header: \newtheorem{result}{Result}
-#+latex_header: \newtheorem{summary}{Summary}
-#+latex_header: \newtheorem{Hypothesis}{Hypothesis}
-#+latex_header: \newcommand{\qed}{\hspace*{\fill} {\em Q.E.D.}}
-#+latex_header: \usepackage{pdftexcmds}
-#+latex_header: \usepackage{minted}
-#+latex_header: \usepackage{textcomp}
-#+latex_header: \usepackage{hyperref}
-#+latex_header: \usepackage{graphicx}
-#+latex_header: \linespread{1.3}
-#+latex_header: \usepackage[right=3cm, left=3cm,top=3cm,bottom=3cm]{geometry}
-#+latex_header: \newcommand{\hf}{{\textstyle{1\over 2}}}
-#+latex_header: \newcommand{\kw}{{\textstyle{1\over 4}}}
-#+latex_header: \newcommand{\hs}{{\textstyle{1\over 6}}}
-#+latex_header: \newcommand{\hr}{{\textstyle{1\over 3}}}
-
+#+LaTeX_CLASS: article-12
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+OPTIONS: toc:2 timestamp:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t
+#+OPTIONS: toc:nil timestamp:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t
 #+STARTUP: showall
-#+LaTeX: \maketitle
-#+HTML_HEAD:  <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+#+HTML_HEAD: <link rel="stylesheet" href="./css/Latex.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
 #+HTML_HEAD: <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-
-#+END_PREFACE
 
 * Introduction
 
 This file describes how we get the data for our project on [[./index.org][European Healthcare Systems]].
 
-In this file we explain how we get the data and from where and at the same time we generate the data. If the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
+In this file we explain how we get the data and from where and at the same time we generate the data. With the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
 
 * Preamble code
 
@@ -98,7 +52,7 @@ EU_countries = ['Belgium', 'Bulgaria', 'Czechia', 'Denmark',
 
 The OECD Health Systems Characteristics Survey can be found on this [[http://qdd.oecd.org/data/HSC][page]].
 
-Click the =Excel Download= button and save the file in the folder =./raw_data=. When this data was downloaded, the filename was =HSC_22012021_110424.xlsx=. Adjust the filename in the code below, if necessary.
+In case you cloned my repository here: Click the =Excel Download= button and save the file in the folder =./raw_data=. When this data was downloaded, the filename was =HSC_22012021_110424.xlsx=. Adjust the filename in the code below, if necessary.
 
 #+begin_src jupyter-python :display plain
 
@@ -132,7 +86,6 @@ df['single payer system'] = (oecd_data['2.a. What is the main source of basic he
 df['inpatient public'] = oecd_data['31.a. Are physicians supplying in-patient specialist services predominantly (Q31a)'].isin(['Publically employed']).astype(float)
 df['outpatient public'] = oecd_data["25a. Are outpatient specialists' services provided predominantly in: (Q25a)"].isin(['Outpatient departments of public hospitals','Public multi-specialty clinic']).astype(float)
 df['public primary care'] = oecd_data["29.a. Are physicians supplying primary care services predominantly (Q29a)"].isin(['Publically employed']).astype(float)
-
 df['free hospital choice'] = (oecd_data['40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'] == 'Patients can choose any hospital without any consequence for the level of coverage').astype(int)
 df['almost free hospital choice'] = oecd_data['40.a. Are patient usually free to choose hospitals for in-patient care? (Q40a)'] == 'Patients are free to choose any hospital but they have financial incentives to choose some providers, please specify'
 df['public provider quality reports'] = (oecd_data['71. Are these metrics publicly reported at the provider level at least annually? (Q71)'] == 'Yes').astype(int)
@@ -151,7 +104,7 @@ len(df)
 
 cite:OECD_avoidable_hospitalizations provides information on avoidable hospitalizations. 
 
-Download the excell file Asthma and COPD hospital admission in adults, 2017 (or nearest year) at https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en to the folder =./raw_data/=. Then copy-paste the table in this excel file to the following csv file: [[./raw_data/Asthma_COPD.csv]]
+Download the excel file Asthma and COPD hospital admission in adults, 2017 (or nearest year) at https://www.oecd-ilibrary.org/social-issues-migration-health/asthma-and-copd-hospital-admission-in-adults-2017-or-nearest-year_e1a68f0a-en to the folder =./raw_data/=. Then copy-paste the table in this excel file to the following csv file: [[./raw_data/Asthma_COPD.csv]]
 
 With this csv file in place, we run the code below.
 
@@ -175,7 +128,7 @@ df.head()
 : 4  Finland  2012                       212.9
 
 
-*** Asthma incidence
+** Asthma incidence
 
 We use avoidable hospital admissions as a measure of primary care quality in a country. One could worry that the incidence of asthma is positively correlated with (treatable) mortality across countries. To test this, we also download data on asthma incidence.
 
@@ -202,6 +155,8 @@ df.head()
 : 3    Cyprus   F  2014                4.7
 : 4   Czechia   F  2014                5.5
 
+As we only use this data in a figure in the paper (not for estimating the model) and because we only have this for one year overlapping with our data, we will not add this to the main dataframe created in Section [[merging European data]].
+
 
 * Economic and health variables
 
@@ -213,7 +168,7 @@ Preventable mortality is defined as death that can be mainly avoided through pub
 
 "The (age-) standardised death rate is a weighted average of age-specific mortality rates. The weighting factor is the age distribution of a standard reference population. The standard reference population used is the European standard population (see annex European standard population - revision 2012) as defined by Eurostat in 2012." from section 3.4 of https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#unit_measure1591105000535
 
-https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#stat_pres1601631715000: death rates are expressed per 100,000 population.
+As explained on [[https://ec.europa.eu/eurostat/cache/metadata/en/hlth_cdeath_esms.htm#stat_pres1601631715000][this website]] death rates are expressed per 100,000 population.
 
 Link to the data: [[https://ec.europa.eu/eurostat/data/database?node_code=hlth_cd_apr]]
 
@@ -246,11 +201,11 @@ df.head()
 : 4  Austria  2013   F                  93.22                66.84
 
 
-*** for robustness analysis
+** for robustness analysis
 
 In the robustness analyses, we also use potential years of life lost and self-perceived health.
 
-**** potential years of life lost [hlth_cd_apyll]
+*** potential years of life lost [hlth_cd_apyll]
 
 Link to data on potential years of life lost by residence:
 https://ec.europa.eu/eurostat/databrowser/view/hlth_cd_apyll/default/table?lang=en
@@ -280,7 +235,7 @@ df.head()
 : 4       Cyprus   F  2011                        1745.0
 
 
-**** self-perceived health [hlth_silc_10]
+*** self-perceived health [hlth_silc_10]
 
 Link to data: https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_10/default/table?lang=en
 
@@ -314,7 +269,7 @@ df.head()
 : 4  Austria  2013   F           9.8            66.7
 
 
-**** median age [demo_pjanind]
+*** median age [demo_pjanind]
 
 In the paper we consider the relation between median age of the population and mortality, as a check.
 
@@ -365,9 +320,6 @@ df['country'] = df['geo'].replace(eurostat_dictionary)
 df = df[df.country.isin(EU_countries) & (df.na_item == 'B1GQ') & (df.unit == "CP_EUR_HAB")]
 df.drop(["unit","na_item","geo"],axis=1,inplace=True)
 df.drop(np.arange(1975,2011),axis=1,inplace=True)
-
-# for year_column in df.columns[:10]:
-#     df[year_column] = df[year_column].astype(str).str.replace(r' [a-z]', '').astype(float)
 df = pd.melt(df,id_vars=['country'],
                         value_vars=np.arange(2011,2021),
                         var_name='year',value_name='GDP per capita')
@@ -392,17 +344,19 @@ We use income quantiles to measure income inequality in the paper. Link to the d
 
 =INC_DISP= refers to disposable income.
 
+As the older year does not overlap with the years of our data, we choose the year 2015.
+
  #+begin_src jupyter-python :display plain
 
 df = eurostat.get_data_df('icw_res_02')
-df.rename({'time\\geo':'year'},inplace=True,axis=1)
+df.rename({'geo\\time':'country'},inplace=True,axis=1)
 
 df = df[(df.indic_il=='INC_DISP')&(df.statinfo=='AVG')&(df.quant_inc.isin(['QU1', 'QU2', 'QU3', 'QU4', 'QU5']))&(df.quant_expn=='TOTAL')&(df.quant_wlth=='TOTAL')]
 df.drop(['unit','quant_expn','quant_wlth','indic_il','statinfo'],axis=1,inplace=True)
 
-df = pd.melt(df,id_vars=['year','quant_inc'],
+df = pd.melt(df,id_vars=['country','quant_inc'],
                         value_vars=df.columns[2:].values,
-                        var_name='country',value_name='y_')
+                        var_name='year',value_name='y_')
 
 
 df.set_index(['country','year','quant_inc'],inplace=True)
@@ -410,17 +364,19 @@ df = df.unstack()
 df.reset_index(inplace=True)
 df.columns = [''.join(col).strip() for col in df.columns.values]
 df['country'] = df['country'].replace(eurostat_dictionary)
+df = df[df.year==2015]
+df.drop(['year'],axis=1,inplace=True)
 df.to_csv('./data/quantile_incomes.csv')
 df.head()
 #+end_src
 
 #+RESULTS:
-:     country  year    y_QU1    y_QU2    y_QU3    y_QU4    y_QU5
-: 0   Austria  2015  16497.2  27961.0  36682.2  48215.5  74495.5
-: 1   Belgium  2015  15759.0  23305.9  33245.0  44850.4  68273.3
-: 2  Bulgaria  2015   1847.7   3270.1   5115.9   7451.6  14354.6
-: 3    Cyprus  2015  11467.4  18180.6  25357.4  35763.9  60673.0
-: 4   Czechia  2015   5855.1   9334.9  12419.9  16699.2  26053.4
+:     country    y_QU1    y_QU2    y_QU3    y_QU4    y_QU5
+: 1   Austria  16497.2  27961.0  36682.2  48215.5  74495.5
+: 3   Belgium  15759.0  23305.9  33245.0  44850.4  68273.3
+: 5  Bulgaria   1847.7   3270.1   5115.9   7451.6  14354.6
+: 7    Cyprus  11467.4  18180.6  25357.4  35763.9  60673.0
+: 9   Czechia   5855.1   9334.9  12419.9  16699.2  26053.4
 
 
 ** healthcare expenditures by function [hlth_sha11_hc]
@@ -481,17 +437,21 @@ Overview of the categories in the data (we work with =BMI_GE30= in the age range
 | BMI18P5-24 | Normal      |
 | BMI_GE30   | Obese       |
 
+The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
+
+
 #+begin_src jupyter-python :display plain
 df = eurostat.get_data_df('hlth_ehis_bm1i')
-df.rename({'time\\geo':'year'},inplace=True,axis=1)
-df = df[(df.bmi=='BMI_GE30')&(df['quantile']=='TOTAL')&(df.sex.isin(['F','M']))&(df.age=='Y15-64')]
-df.drop(["quantile","age","unit","bmi"],axis=1,inplace=True)
+df.rename({'geo\\time':'geo'},inplace=True,axis=1)
+df = df[(df.bmi=='BMI_GE30')&(df['quant_inc']=='TOTAL')&(df.sex.isin(['F','M']))&(df.age=='Y15-64')]
+df.drop(["quant_inc","age","unit","bmi"],axis=1,inplace=True)
 
-df = pd.melt(df,id_vars=['year','sex'],
+df = pd.melt(df,id_vars=['geo','sex'],
      value_vars=df.columns[2:],
-     var_name='geo',value_name='high bmi')
+     var_name='year',value_name='high bmi')
 
 df['country'] = df['geo'].replace(eurostat_dictionary)
+df = df[df.year==2014]
 df.drop(['geo','year'],inplace=True,axis=1)
 df = df[df.country.isin(EU_countries)]
 df['high bmi'] = df['high bmi'].astype(float)/100.0
@@ -501,12 +461,13 @@ df.head()
 #+end_src
 
 #+RESULTS:
-:   sex  high bmi   country
-: 4   F     0.129   Belgium
-: 5   M     0.126   Belgium
-: 6   F     0.116  Bulgaria
-: 7   M     0.146  Bulgaria
-: 8   F     0.160   Czechia
+:    sex  high bmi   country
+: 68   F     0.113   Austria
+: 69   F     0.129   Belgium
+: 70   F     0.116  Bulgaria
+: 71   F     0.097    Cyprus
+: 72   F     0.160   Czechia
+
 
 *** Daily smokers of cigarettes by sex, age and income quintile [hlth_ehis_sk3i]
 
@@ -524,8 +485,8 @@ We choose fraction of people smoking 20 or more cigarettes a day (=SM_GE20D=) in
 df = eurostat.get_data_df('hlth_ehis_sk3i')
 df.rename({'time\\geo':'year'},inplace=True,axis=1)
 
-df = df[(df.age=='Y15-64')&(df.smoking=='SM_GE20D')&(df['quantile']=='TOTAL')&(df.sex.isin(['F','M']))]
-df.drop(["quantile","age","unit","smoking"],axis=1,inplace=True)
+df = df[(df.age=='Y15-64')&(df.smoking=='SM_GE20D')&(df['quant_inc']=='TOTAL')&(df.sex.isin(['F','M']))]
+df.drop(["quant_inc","age","unit","smoking"],axis=1,inplace=True)
 df = pd.melt(df,id_vars=['year','sex'],
      value_vars=df.columns[2:],
      var_name='geo',value_name='smoking')
@@ -552,17 +513,20 @@ Link to the data: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/
 
 Here we choose fraction of people with a "frequency of heavy drinking every month" (=MTH=), again with the age category 15-64,
 
+The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
+
 #+begin_src jupyter-python :display plain
 df = eurostat.get_data_df('hlth_ehis_al3e')
-df.rename({'time\\geo':'year'},inplace=True,axis=1)
+df.rename({'geo\\time':'geo'},inplace=True,axis=1)
 
 df = df[(df.age=='Y15-64')&(df.sex.isin(['F','M']))&(df.isced11=='TOTAL')&(df.frequenc=='MTH')]
 df.drop(["isced11","age","unit","frequenc"],axis=1,inplace=True)
-df = pd.melt(df,id_vars=['year','sex'],
+df = pd.melt(df,id_vars=['geo','sex'],
      value_vars=df.columns[2:],
-     var_name='geo',value_name='binge drinking')
+     var_name='year',value_name='binge drinking')
 
 df['country'] = df['geo'].replace(eurostat_dictionary)
+df = df[df.year==2014]
 df.drop(['geo','year'],inplace=True,axis=1)
 df = df[df.country.isin(EU_countries)]
 df['binge drinking'] = df['binge drinking'].astype(float)/100.0
@@ -571,12 +535,12 @@ df.head()
 #+end_src
 
 #+RESULTS:
-:   sex  binge drinking   country
-: 4   F           0.162   Belgium
-: 5   M           0.272   Belgium
-: 6   F           0.107  Bulgaria
-: 7   M           0.253  Bulgaria
-: 8   F           0.089   Czechia
+:    sex  binge drinking   country
+: 68   F           0.129   Austria
+: 69   F           0.162   Belgium
+: 70   F           0.107  Bulgaria
+: 71   F           0.017    Cyprus
+: 72   F           0.089   Czechia
 
 
 ** number of doctors and nurses
@@ -660,11 +624,12 @@ import pandas as pd
 
 df = pd.read_csv('./data/preventable_mortality.csv')
 
-files_list = ['doctors.csv','GDP.csv','nurses.csv','asthma_copd.csv','expenditure_financing_by_function.csv'] # GEO, TIME  
+
+files_list = ['doctors.csv','GDP.csv','nurses.csv','asthma_copd.csv','expenditure_financing_by_function.csv'] # GEO, TIME
 
 second_list = ['high_bmi.csv','smoking.csv','alcohol.csv'] # GEO, sex
 
-third_list = ['years_lost.csv','population_age.csv', 'self_perceived_health.csv'] # GEO, TIME, sex 
+third_list = ['years_lost.csv','population_age.csv', 'self_perceived_health.csv'] # GEO, TIME, sex
 
 
 fourth_list = ['quantile_incomes.csv'] # GEO
@@ -677,11 +642,11 @@ for f in second_list:
     df_new = pd.read_csv('./data/'+f)
     df=df.merge(df_new,how='left',left_on=['country','sex'], right_on=['country','sex'])
 
-    
+
 for f in files_list:
     df_new = pd.read_csv('./data/'+f)
     df=df.merge(df_new,how='left',left_on=['country','year'], right_on=['country','year'])
-    
+
 for f in fourth_list:
     df_new = pd.read_csv('./data/'+f)
     df=df.merge(df_new,how='left',left_on=['country'], right_on=['country'])
@@ -696,35 +661,35 @@ df.head()
 
 #+RESULTS:
 #+begin_example
-   country  year_x sex  Preventable mortality  Treatable mortality  \
-0  Austria    2011   F                  95.29                67.41   
-1  Austria    2011   M                 248.50                96.86   
-2  Austria    2012   F                  96.16                69.72   
-3  Austria    2012   M                 252.28                91.45   
-4  Austria    2013   F                  93.22                66.84   
+   country  year sex  Preventable mortality  Treatable mortality  \
+0  Austria  2011   F                  95.29                67.41
+1  Austria  2011   M                 248.50                96.86
+2  Austria  2012   F                  96.16                69.72
+3  Austria  2012   M                 252.28                91.45
+4  Austria  2013   F                  93.22                66.84
 
    potential years of life lost  median age  Bad Very Bad  Very Good Good  \
-0                        2381.0        43.2          10.4            66.8   
-1                        4608.0        40.9           8.4            70.8   
-2                        2326.0        43.5           9.6            68.5   
-3                        4390.0        41.2           8.4            71.7   
-4                        2245.0        43.8           9.8            66.7   
+0                        2381.0        43.2          10.4            66.8
+1                        4608.0        40.9           8.4            70.8
+2                        2326.0        43.5           9.6            68.5
+3                        4390.0        41.2           8.4            71.7
+4                        2245.0        43.8           9.8            66.7
 
-   high bmi  ...     HC4     HC5    HC6     HC7  year_y    y_QU1    y_QU2  \
-0     0.113  ...  115.73  632.45  75.80  143.13  2015.0  16497.2  27961.0   
-1     0.146  ...  115.73  632.45  75.80  143.13  2015.0  16497.2  27961.0   
-2     0.113  ...  121.00  648.89  76.02  152.48  2015.0  16497.2  27961.0   
-3     0.146  ...  121.00  648.89  76.02  152.48  2015.0  16497.2  27961.0   
-4     0.113  ...  123.03  657.19  80.64  159.31  2015.0  16497.2  27961.0   
+   high bmi  ...     HC3     HC4     HC5    HC6     HC7    y_QU1    y_QU2  \
+0     0.113  ...  542.67  115.73  632.45  75.80  143.13  16497.2  27961.0
+1     0.146  ...  542.67  115.73  632.45  75.80  143.13  16497.2  27961.0
+2     0.113  ...  564.93  121.00  648.89  76.02  152.48  16497.2  27961.0
+3     0.146  ...  564.93  121.00  648.89  76.02  152.48  16497.2  27961.0
+4     0.113  ...  587.97  123.03  657.19  80.64  159.31  16497.2  27961.0
 
-     y_QU3    y_QU4    y_QU5  
-0  36682.2  48215.5  74495.5  
-1  36682.2  48215.5  74495.5  
-2  36682.2  48215.5  74495.5  
-3  36682.2  48215.5  74495.5  
-4  36682.2  48215.5  74495.5  
+     y_QU3    y_QU4    y_QU5
+0  36682.2  48215.5  74495.5
+1  36682.2  48215.5  74495.5
+2  36682.2  48215.5  74495.5
+3  36682.2  48215.5  74495.5
+4  36682.2  48215.5  74495.5
 
-[5 rows x 29 columns]
+[5 rows x 28 columns]
 #+end_example
 
 
@@ -753,3 +718,5 @@ len(df)
 #+RESULTS:
 : 336
 
+
+#+BIBLIOGRAPHY:../marginalinnovation plainnat limit:t option:-nobibsource
