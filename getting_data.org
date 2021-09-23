@@ -22,6 +22,10 @@ This file describes how we get the data for our project on [[./index.org][Europe
 
 In this file we explain how we get the data and from where and at the same time we generate the data. With the data is generated in this way, a change in the data by either the OECD or Eurostat will lead to (slightly) different results.
 
+** note on replicating the data
+
+After finishing the analysis for the paper, I went through this file to check the data (in September 2021) and noticed that for three variables the original code below generated errors. The reason is that Eurostat changed the data and thereby the format by which it is imported using the API. At this moment this affects the variables on BMI, alcohol consumption and income inequality. For each of these variables a year of data was added (outside the years of our analysis) and to replicate the data of our analysis we now select the years of our original data set. Clearly, similar changes can happen in the future and therefore the data used for the analysis is also provided in the =data= folder.
+
 * Preamble code
 
 Run this code first before running the code of particular data sets. It imports the relevant libraries.
@@ -344,7 +348,8 @@ We use income quantiles to measure income inequality in the paper. Link to the d
 
 =INC_DISP= refers to disposable income.
 
-As the older year does not overlap with the years of our data, we choose the year 2015.
+As explained in section [[note on replicating the data]] above, we select here a year to replicate the data in the analysis of the paper.
+
 
  #+begin_src jupyter-python :display plain
 
@@ -437,8 +442,7 @@ Overview of the categories in the data (we work with =BMI_GE30= in the age range
 | BMI18P5-24 | Normal      |
 | BMI_GE30   | Obese       |
 
-The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
-
+As explained in section [[note on replicating the data]] above, we select here a year to replicate the data in the analysis of the paper.
 
 #+begin_src jupyter-python :display plain
 df = eurostat.get_data_df('hlth_ehis_bm1i')
@@ -513,7 +517,7 @@ Link to the data: https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_al3e/
 
 Here we choose fraction of people with a "frequency of heavy drinking every month" (=MTH=), again with the age category 15-64,
 
-The year 2019 falls outside the range of our other variables. Hence we choose only data for 2014.
+As explained in section [[note on replicating the data]] above, we select here a year to replicate the data in the analysis of the paper.
 
 #+begin_src jupyter-python :display plain
 df = eurostat.get_data_df('hlth_ehis_al3e')

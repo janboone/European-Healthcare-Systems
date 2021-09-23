@@ -2,7 +2,7 @@
 #+STARTUP: hideblocks
 #+SETUPFILE: ./org-html-themes/org/theme-readtheorg.setup
 #+Title: Comparing European healthcare systems
-#+Author: Jan Boone@@latex:\inst{*}@@
+#+Author: Jan Boone@@latex:\thanks{Tilburg University, Department of Economics, Tilec and CEPR, E-mail: \textit{j.boone@uvt.nl}.}@@
 #+PROPERTY: header-args  :session european :kernel python3 :async yes
 
 #+LANGUAGE: en
@@ -25,8 +25,6 @@ We introduce a theoretical framework to analyze the effects on health system per
 *Keywords:* healthcare systems, insurer competition, single payer, hospital choice
 
 
-#+latex: \vspace*{\fill}
-#+latex: \institute{\inst{*} Department of Economics, Tilec, Tilburg University and CEPR, London.}
 
 #+LATEX: \newpage
 
