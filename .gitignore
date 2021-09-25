@@ -1,3 +1,6 @@
+## folders
+noexport/
+
 ## data files:
 *.dta
 *.csv
@@ -14,6 +17,7 @@
 *.fls
 *.out
 *.toc
+*.pdf.bak
 
 ## Intermediate documents:
 *.dvi
