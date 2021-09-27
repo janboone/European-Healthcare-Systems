@@ -17,7 +17,7 @@
 #+HTML_HEAD: <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 
 #+begin_abstract
-We introduce a theoretical framework to analyze the effects on health system performance of health policy choices related to efficiency, quality and competition and use recent data from Eurostat and OECD to verify the predictions. We find that --conditional on healthcare expenditure-- the following efficiency measures lead to improved performance in terms of reduced mortality:  increasing the ratio of nurses over doctors and a well developed primary care sector. Introducing a regulator specifically for healthcare quality and making provider quality reports public are associated with improved outcomes. In terms of competition, allowing patients to choose their provider leads to lower mortality. But in terms of insurer competition, single payer systems tend to do better than multiple insurers, especially in countries where inpatient care is predominantly delivered by public hospitals.
+We introduce a framework to analyze the effects on health system performance of health policy choices related to efficiency, quality and competition. We use recent data from Eurostat and OECD to verify the predictions. We find that --conditional on healthcare expenditure-- the following efficiency measures lead to improved performance:  increasing ratio of nurses over doctors and a well developed primary care sector. Introducing a healthcare regulator and publishing provider reports improve outcomes. Allowing patients to choose their provider leads to lower mortality. But in terms of insurer competition, single payer systems tend to do better than multiple insurers.
 #+end_abstract
 
 *JEL codes:* I11, I13, I18
